@@ -6,7 +6,7 @@ import {
   Optional,
   UUIDV4,
 } from 'sequelize';
-import { AssociateModelFn } from './map';
+import {AssociateModelFn, ModelsObject} from './map';
 
 interface TranslationAttributes {
   id: string,
@@ -52,8 +52,8 @@ export default function InitTranslation(sequelize: Sequelize): [ModelStatic<Mode
     sequelize,
   });
 
-  const associate: AssociateModelFn = ({ Language }) => {
-    Translation.belongsToMany(Language, { through: 'LanguageTranslation', foreignKey: 'translationId' });
+  const associate: AssociateModelFn = ({ Language: LanguageModel }: ModelsObject) => {
+    Translation.belongsToMany(LanguageModel, { through: 'LanguageTranslation', foreignKey: 'translationId' });
   };
 
   return [Translation, associate];

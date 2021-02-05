@@ -1,15 +1,32 @@
 import { sequelize } from '../setup/sequelize';
 import { ModelsObject, InitializeModelFn, FunctionsObject } from './map';
+
 import InitTranslation from './Translation';
 import InitLanguage from './Language';
 import InitLanguageTranslation from './LanguageTranslation';
 import InitValueLanguagesTranslations from './ValueLanguagesTranslations';
+
+import InitRacer from './Racer';
+import InitEvent from './Event';
+import InitRacerAtEvent from './RacerAtEvent';
+import InitRace from './Race';
+import InitRacerAtRace from './RacerAtRace';
+import InitLap from './Lap';
 
 const modelsModules: InitializeModelFn[] = [
   InitTranslation,
   InitLanguage,
   InitLanguageTranslation,
   InitValueLanguagesTranslations,
+
+  InitRacer,
+
+  InitEvent,
+  InitRacerAtEvent,
+
+  InitRace,
+  InitRacerAtRace,
+  InitLap,
 ];
 
 const models: ModelsObject = {};

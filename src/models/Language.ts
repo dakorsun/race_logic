@@ -26,7 +26,7 @@ export class Language extends Model<LanguageAttributes, LanguageCreationAttribut
   public readonly createdAt: Date;
   public readonly updatedAt: Date ;
   public static associations: {
-    projects: Association<Language, Translation>;
+    translations: Association<Language, Translation>;
   };
 }
 
