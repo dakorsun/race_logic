@@ -1,0 +1,1 @@
+{ "watch": ["server/**/*"], "ignore": [], "exec": "node ./server/main.js" }
