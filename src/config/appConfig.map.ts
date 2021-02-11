@@ -1,7 +1,7 @@
 interface PostgressSqlConfig {
   readonly URL: string;
   readonly USER: string;
-  readonly PORT: string;
+  readonly PORT: number;
   readonly PASSWORD: string;
   readonly DB: string;
   readonly DIALECT: 'postgres';

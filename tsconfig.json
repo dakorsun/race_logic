@@ -1,7 +1,12 @@
 {
   "compilerOptions": {
+    "lib": ["es5", "es6", "dom"],
     "target": "es5",
     "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "noEmitOnError": true,
     "noUnusedLocals": true,
     "removeComments": true,

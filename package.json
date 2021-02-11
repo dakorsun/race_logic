@@ -11,9 +11,9 @@
     "build:client:dev": "webpack --config webpack.client.js --mode development",
     "build:server:dev": "webpack --config webpack.server.js --mode development",
     "server:dev": "npm run build:server:dev | nodemon",
-    "seq-sync": "ts-node src/config/database/syncDatabase.ts",
-    "seq-drop": "ts-node src/config/database/dropDatabase.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/config/typeorm-config.ts ",
+    "typeorm:sync": "npm run typeorm:cli schema:sync"
   },
   "repository": {
     "type": "git",
@@ -74,12 +74,15 @@
   "dependencies": {
     "@types/node": "^14.14.10",
     "@types/sequelize": "^4.28.9",
+    "apollo-server": "^2.20.0",
+    "apollo-server-express": "^2.20.0",
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "graphql": "^15.5.0",
     "helmet": "^4.2.0",
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
@@ -87,6 +90,9 @@
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
-    "sequelize": "^6.3.5"
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.3.5",
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.2.30"
   }
 }

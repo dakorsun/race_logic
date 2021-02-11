@@ -10,7 +10,7 @@ const appConfig = {
   POSTGRESQL: {
     URL: process.env.POSTGRESQL_URL,
     USER: process.env.POSTGRESQL_USER,
-    PORT: process.env.POSTGRESQL_PORT,
+    PORT: +process.env.POSTGRESQL_PORT,
     PASSWORD: process.env.POSTGRESQL_PASSWORD,
     DB: process.env.POSTGRESQL_DB,
     DIALECT: 'postgres',

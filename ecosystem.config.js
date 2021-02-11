@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  name: 'green_focus prod',
+  name: 'race_logic prod',
   script: path.resolve(__dirname, './server/main.js'),
   exec_mode: 'cluster',
   instances: 2,
