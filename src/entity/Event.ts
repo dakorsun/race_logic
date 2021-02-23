@@ -1,5 +1,4 @@
 /* eslint-disable import/no-cycle */
-
 import {
   Column,
   Entity, OneToMany,
@@ -7,16 +6,21 @@ import {
 import { Field, ObjectType } from 'type-graphql';
 import { DefaultEntity } from './map';
 import { RacerAtEvent } from './RacerAtEvent';
-import { DateRange } from '../config/constants';
 
 @Entity()
 @ObjectType()
 export class Event extends DefaultEntity {
-  @Field(() => (DateRange))
-  @Column({ type: 'char', length: 64, array: true })
-  date: string[];
+  @Field(() => String, { nullable: true })
+  @Column({ type: 'varchar', nullable: true })
+  name: string;
+  @Field(() => Date)
+  @Column({ type: 'timestamp' })
+  dateFrom: Date;
+  @Field(() => Date)
+  @Column({ type: 'timestamp' })
+  dateTo: Date;
   //
-  // Event to Racer Relation
+  // Racer at Event Relation
   @OneToMany(() => RacerAtEvent, (racerAtEvent) => racerAtEvent.event, {
     cascade: true,
   })

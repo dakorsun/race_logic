@@ -23,7 +23,7 @@ const typeormConfig = {
     RacerAtEvent,
     RacerAtRace,
   ],
-  synchronize: false,
+  synchronize: true,
 } as PostgresConnectionOptions;
 
 export default typeormConfig;
