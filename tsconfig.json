@@ -16,7 +16,10 @@
     "paths": {
       "App": ["src/App"],
       "Pages/*": ["src/Pages/*"]
-    }
+    },
+    "plugins": [{
+      "name": "typescript-plugin-css-modules"
+    }]
   },
   "exclude": [
     "node_modules"

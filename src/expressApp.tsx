@@ -1,8 +1,10 @@
 import express, { Express } from 'express';
-import expressSetup from './setup/expressSetup';
+import clientExpressSetup from './setup/express/client';
+import serverExpressSetup from './setup/express/server';
 
 const expressApp: Express = express();
 
-expressSetup(expressApp);
+clientExpressSetup(expressApp);
+serverExpressSetup(expressApp);
 
 export default expressApp;

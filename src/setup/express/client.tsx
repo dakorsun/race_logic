@@ -1,18 +1,12 @@
 import fs from 'fs';
 import axios from 'axios';
-import compression from 'compression';
 import express, { Request, Response } from 'express';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import App from 'App';
-import helmet from 'helmet';
-import bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
 import React from 'react';
-import Html from '../Html/Server';
-import 'reflect-metadata';
-import setupConnection from './typeorm';
-import appConfig from '../config/appConfig';
+import Html from '../../Html/Server';
+import appConfig from '../../config/appConfig';
 
 export default (app: express.Application) => {
   const jsFiles: Array<string> = [];
@@ -23,17 +17,6 @@ export default (app: express.Application) => {
   });
 
   axios.defaults.baseURL = `${appConfig.HOST}:${appConfig.PORT}`;
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  setupConnection().then((connection) => {
-
-  });
-
-  app.get('/ping', async (req: Request, res: Response) => {
-    res.send('pong');
-  });
-
-  app.use(compression());
 
   app.use('/assets', express.static('./dist/assets'));
 
@@ -46,8 +29,4 @@ export default (app: express.Application) => {
       </Html>,
     ).pipe(res);
   });
-
-  app.use(helmet());
-  app.use(bodyParser.json());
-  app.use(cookieParser());
 };

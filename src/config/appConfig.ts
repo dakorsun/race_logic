@@ -7,6 +7,7 @@ const appConfig = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   HOST: process.env.HOST,
   PORT: process.env.PORT,
+  APOLLO_PORT: process.env.APOLLO_PORT,
   POSTGRESQL: {
     URL: process.env.POSTGRESQL_URL,
     USER: process.env.POSTGRESQL_USER,

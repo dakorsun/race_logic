@@ -1,0 +1,6 @@
+{
+  "watch": ["src/**/*.ts"],
+  "ext": "ts, json",
+  "ignore": ["src/App/**/*", "src/Html/**/*"],
+  "exec": "ts-node ./src/apolloServer.ts"
+}

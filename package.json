@@ -10,7 +10,8 @@
     "build:server:prod": "webpack --config webpack.server.js --mode production",
     "build:client:dev": "webpack --config webpack.client.js --mode development",
     "build:server:dev": "webpack --config webpack.server.js --mode development",
-    "server:dev": "npm run build:server:dev | nodemon",
+    "server:dev": "npm run build:server:dev | nodemon --config ./app.nodemon.json",
+    "apollo-server": "nodemon --config ./apollo.nodemon.json --inspect-brk",
     "test": "echo \"Error: no test specified\" && exit 1",
     "typeorm:cli": "ts-node ./node_modules/typeorm/cli -f ./src/config/typeorm-config.ts ",
     "typeorm:sync": "npm run typeorm:cli schema:sync"
@@ -78,6 +79,7 @@
     "apollo-server-express": "^2.20.0",
     "axios": "^0.21.0",
     "body-parser": "^1.19.0",
+    "class-validator": "^0.13.1",
     "compression": "^1.7.4",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
