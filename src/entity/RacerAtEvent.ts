@@ -6,12 +6,12 @@ import {
 } from 'typeorm';
 import { ObjectType } from 'type-graphql';
 import { DefaultEntity } from './map';
-import { Racer } from './Racer';
-import { Event } from './Event';
+import Racer from './Racer';
+import Event from './Event';
 
 @Entity()
 @ObjectType()
-export class RacerAtEvent extends DefaultEntity {
+export default class RacerAtEvent extends DefaultEntity {
   @Column()
   public racerId!: number;
   @Column()

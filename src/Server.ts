@@ -1,9 +1,9 @@
 import { Server } from 'http';
 import expressApp from './expressApp';
-import appConfig from './config/appConfig';
+import serverConfig from './config/serverConfig';
 import apolloSetup from './setup/apolloSetup';
 
-const { PORT: port, HOST: host } = appConfig;
+const { PORT: port, HOST: host } = serverConfig;
 const server = new Server(expressApp);
 // todo logging
 // eslint-disable-next-line no-console

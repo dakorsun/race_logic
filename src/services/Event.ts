@@ -3,10 +3,10 @@ import {
   DeepPartial, LessThanOrEqual, Like, MoreThanOrEqual,
 } from 'typeorm';
 import { CreateEventInput, FindEventsInput, UpdateEventInput } from '../apollo/inputs/EventInputs';
-import { Event } from '../entity/Event';
+import Event from '../entity/Event';
 
 class EventServiceModel {
-  async getEventById(id: string) {
+  async getEventById(id: string): Promise<Event> {
     try {
       return await Event.findOne({ where: { id } });
     } catch (e) {
@@ -14,7 +14,7 @@ class EventServiceModel {
       throw e;
     }
   }
-  async findEventsByParameters(parameters: FindEventsInput) {
+  async findEventsByParameters(parameters: FindEventsInput): Promise<Event[]> {
     try {
       const queryClause = {} as any;
       const { name, date } = parameters;
@@ -43,7 +43,7 @@ class EventServiceModel {
       throw e;
     }
   }
-  async createEvent(data: CreateEventInput) {
+  async createEvent(data: CreateEventInput): Promise<Event> {
     try {
       const event = await Event.create(data as DeepPartial<Event>);
       await event.save();
@@ -53,7 +53,7 @@ class EventServiceModel {
       throw e;
     }
   }
-  async updateEvent(id: string, data: UpdateEventInput) {
+  async updateEvent(id: string, data: UpdateEventInput): Promise<Event> {
     try {
       const event = await Event.findOne({ where: { id } });
       if (!event) throw new Error('No Event found');
@@ -65,7 +65,7 @@ class EventServiceModel {
       throw e;
     }
   }
-  async removeEvent(id: string) {
+  async removeEvent(id: string): Promise<boolean> {
     try {
       const event = await Event.findOne({ where: { id } });
       if (!event) throw new Error('No Event found');

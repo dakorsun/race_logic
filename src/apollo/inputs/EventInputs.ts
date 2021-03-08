@@ -1,6 +1,7 @@
 import { Field, InputType } from 'type-graphql';
 import { IsDate } from 'class-validator';
-import { DateRangeSearchCriteria, DateRangeSearchCriteriaScalarType } from '../../config/constants';
+import { DateRangeSearchCriteriaScalarType } from '../../config/constants';
+import { DateRangeSearchCriteria } from '../../config/types';
 
 @InputType()
 export class CreateEventInput {

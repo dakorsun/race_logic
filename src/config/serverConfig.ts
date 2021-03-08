@@ -1,13 +1,14 @@
 import dotenv from 'dotenv';
-import { AppConfig } from './appConfig.map';
+import { ServerConfig } from './serverConfig.map';
 
 dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : undefined });
 
-const appConfig = {
+const serverConfig = {
   NODE_ENV: process.env.NODE_ENV || 'development',
-  HOST: process.env.HOST,
-  PORT: process.env.PORT,
-  APOLLO_PORT: process.env.APOLLO_PORT,
+  HOST: process.env.SERVER_HOST,
+  PORT: process.env.SERVER_PORT,
+  APOLLO_PORT: process.env.SERVER_APOLLO_PORT,
+  APP_SECRET_KEY: process.env.SERVER_APP_SECRET_KEY,
   POSTGRESQL: {
     URL: process.env.POSTGRESQL_URL,
     USER: process.env.POSTGRESQL_USER,
@@ -28,6 +29,6 @@ const appConfig = {
     API_KEY: process.env.EMAIL_API_KEY,
     MESSAGE_FROM: process.env.EMAIL_MESSAGE_FROM,
   },
-} as AppConfig;
+} as ServerConfig;
 
-export default Object.freeze(appConfig);
+export default Object.freeze(serverConfig);

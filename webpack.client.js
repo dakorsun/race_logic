@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const TerserPlugin = require('terser-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const webpackConfig = require('./webpack.config');
 
@@ -33,6 +34,7 @@ module.exports = (env, argv) => {
   }
 
   return {
+    // target: 'node',
     devServer: {
       contentBase: path.join(__dirname, 'dist'),
       compress: true,
@@ -56,6 +58,7 @@ module.exports = (env, argv) => {
         template: './src/Html/Browser.html',
       }),
       new WebpackNotifierPlugin({ alwaysNotify: false }),
+      new Dotenv(),
     ],
     entry: {
       main: './src/Client.tsx',

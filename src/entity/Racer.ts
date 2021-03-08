@@ -5,12 +5,12 @@ import {
 } from 'typeorm';
 import { ObjectType } from 'type-graphql';
 import { DefaultEntity } from './map';
-import { RacerAtEvent } from './RacerAtEvent';
-import { RacerAtRace } from './RacerAtRace';
+import RacerAtEvent from './RacerAtEvent';
+import RacerAtRace from './RacerAtRace';
 
 @Entity()
 @ObjectType()
-export class Racer extends DefaultEntity {
+export default class Racer extends DefaultEntity {
   //
   // Racer to Event Relation
   @OneToMany(() => RacerAtEvent, (racerAtEvent) => racerAtEvent.racer, {

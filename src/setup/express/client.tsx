@@ -6,7 +6,7 @@ import { StaticRouter } from 'react-router-dom';
 import App from 'App';
 import React from 'react';
 import Html from '../../Html/Server';
-import appConfig from '../../config/appConfig';
+import serverConfig from '../../config/serverConfig';
 
 export default (app: express.Application) => {
   const jsFiles: Array<string> = [];
@@ -16,7 +16,7 @@ export default (app: express.Application) => {
     if (file.split('.').pop() === 'js') jsFiles.push(`/assets/${file}`);
   });
 
-  axios.defaults.baseURL = `${appConfig.HOST}:${appConfig.PORT}`;
+  axios.defaults.baseURL = `${serverConfig.HOST}:${serverConfig.PORT}`;
 
   app.use('/assets', express.static('./dist/assets'));
 

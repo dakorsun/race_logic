@@ -2,6 +2,6 @@ import { Resolver } from 'type-graphql';
 // import { Racer } from '../entity/Racer';
 
 @Resolver()
-export class RacerAtEventResolver {
+export default class RacerAtEventResolver {
 
 }

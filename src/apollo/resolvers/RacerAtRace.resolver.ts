@@ -1,6 +1,6 @@
 import { Resolver } from 'type-graphql';
 
 @Resolver()
-export class RacerAtRaceResolver {
+export default class RacerAtRaceResolver {
 
 }

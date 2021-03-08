@@ -1,18 +1,16 @@
-import { Server } from 'http';
+import 'reflect-metadata';
 import express, { Express } from 'express';
-import appConfig from './config/appConfig';
+import serverConfig from './config/serverConfig';
 import apolloSetup from './setup/apolloSetup';
 import serverSetup from './setup/express/server';
 
-const { APOLLO_PORT: apolloPort, PORT: port, HOST: host } = appConfig;
+const { APOLLO_PORT: apolloPort, HOST: host } = serverConfig;
 const expressApp: Express = express();
 serverSetup(expressApp);
-const server = new Server(expressApp);
 // todo logging
 // eslint-disable-next-line no-console
-server.listen(port, () => console.log(`Server started on ${host}:${port}`));
 
 apolloSetup().then((apolloServer) => {
   apolloServer.listen(apolloPort);
-  console.log(`Apollo server started on ${host}:${apolloPort}`);
+  console.log(`\nApollo server started on ${host}:${apolloPort}`);
 });

@@ -6,13 +6,13 @@ import {
 } from 'typeorm';
 import { ObjectType } from 'type-graphql';
 import { DefaultEntity } from './map';
-import { Racer } from './Racer';
-import { Race } from './Race';
-import { Lap } from './Lap';
+import Racer from './Racer';
+import Race from './Race';
+import Lap from './Lap';
 
 @Entity()
 @ObjectType()
-export class RacerAtRace extends DefaultEntity {
+export default class RacerAtRace extends DefaultEntity {
   //
   // related racer
   @Column()

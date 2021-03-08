@@ -2,12 +2,12 @@
 import {
   Resolver, Query, Mutation, Arg,
 } from 'type-graphql';
-import { Event } from '../../entity/Event';
+import Event from '../../entity/Event';
 import EventService from '../../services/Event';
 import { CreateEventInput, UpdateEventInput, FindEventsInput } from '../inputs/EventInputs';
 
 @Resolver()
-export class EventResolver {
+export default class EventResolver {
   @Query(() => [Event])
   events(@Arg('parameters') parameters: FindEventsInput) {
     return EventService.findEventsByParameters(parameters);

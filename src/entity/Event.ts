@@ -5,11 +5,11 @@ import {
 } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { DefaultEntity } from './map';
-import { RacerAtEvent } from './RacerAtEvent';
+import RacerAtEvent from './RacerAtEvent';
 
 @Entity()
 @ObjectType()
-export class Event extends DefaultEntity {
+export default class Event extends DefaultEntity {
   @Field(() => String, { nullable: true })
   @Column({ type: 'varchar', nullable: true })
   name: string;
