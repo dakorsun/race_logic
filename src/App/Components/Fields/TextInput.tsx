@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 interface TextInputAttributes {
   name: string,
   register: any,
-  error?: string
+  error?: { type: string }
   label?: string
 }
 
