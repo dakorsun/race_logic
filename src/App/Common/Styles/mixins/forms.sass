@@ -1,0 +1,125 @@
+@mixin input-default
+  outline: none
+  border-inline: 0
+  border-radius: $border_radius-s
+@mixin input-styled-label_to_border_on_focus
+  &.label
+    position: absolute
+    left: $border_width-input
+    top: $border_width-input
+    margin: $padding-s * 1.5 $padding-s
+    padding: 0 $padding-s
+    white-space: nowrap
+    transform: translate(0, 0)
+    transform-origin: 0 0
+    transition: transform 120ms ease-in
+    font-weight: bold
+    color: $font-color-grey
+
+  &.field
+    @include input-default
+    display: block
+    background: $background-grey-light !important
+    width: 100%
+    height: 100%
+    padding: $padding-s * 1.5 $padding-s
+    color: $font-color-orange
+    border: $border_width-input solid $font-color-orange
+
+    &:focus,
+    &:not(:placeholder-shown)
+      & + .input.label
+        transform: translate(0, - ($padding-s + ($line_height-main / 1.5) + $border_width-input)) scale(.9)
+        color: $font-color-orange !important
+        background: $background-grey-light
+
+    &:hover
+      & + .input.label
+        color: $font-color-grey-dark
+@mixin button-styled-label_to_border_on_hover
+  width: fit-content
+  border-radius: $border_radius-s
+  border: $border_width-input solid $color-orange
+
+  &:hover
+    cursor: pointer
+    border: $border_width-input solid $color-orange-dark
+    & .label
+      color: $font-color-orange-dark
+
+  &:active
+    border: $border_width-input solid $color-orange
+    & .label
+      color: $font-color-orange
+
+  & > *
+    font-size: $font-size-main
+    line-height: $line_height-main
+
+  & .label
+    padding: $padding-s $padding-s * 2
+    color: $font-color-orange
+    font-weight: bold
+
+
+@mixin input-textable
+  & .input
+    // autocomplete fix try
+    //input: -webkit-autofill
+    //  -webkit-box-shadow: inset 0 0 0 50px $background-grey-light !important
+
+    *
+      font-size: $font-size-main
+      line-height: $line_height-main
+
+    &:not(:last-child)
+      bottom: $margin-m
+
+    @include input-styled-label_to_border_on_focus
+
+
+@mixin submit-button
+  @include button-styled-label_to_border_on_hover
+
+
+
+@mixin form
+  padding: $padding-l
+  width: $width-modal-form-single-column
+  margin: 0 auto
+  box-shadow: 10px 10px 28px 5px $background-dark
+
+
+  background: $background-grey-light
+  border-radius: $border-radius-m
+
+  display: flex
+  justify-content: center
+  flex-direction: column
+
+  & .form-block
+
+    &:not(:last-child)
+      margin-bottom: $margin-l
+
+    .input-wrapper
+      position: relative
+
+      &:not(:last-child)
+        margin-bottom: $margin-m
+
+      @include input-textable
+
+    .button-wrapper
+      //display: flex
+      //justify-content: center
+      //align-items: center
+
+      @include submit-button
+
+    .form-element
+      text-align: center
+      color: $font-color-orange
+      font-size: $font_size-heading-main
+      line-height: $line_height-heading-main
+      font-weight: bold

@@ -1,13 +1,13 @@
 import React
-, { useEffect }
+, { useEffect, useRef }
   from 'react';
 import { useHistory } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
-import EmailInput from '../Fields/EmailInput';
-import PasswordInput from '../Fields/PasswordInput';
 import { AUTH_TOKEN, EmailRegEx } from '../../../config/constants';
 import { LOGIN_MUTATION } from './mutations';
+import TextInput from '../Fields/TextInput';
+import SubmitButton from '../Fields/SubmitButton';
 
 interface FormData {
   email: string,
@@ -21,6 +21,7 @@ const LoginComponent = (): JSX.Element => {
     register, handleSubmit, errors, setError, clearErrors,
   } = useForm();
 
+  const formRef = useRef(null);
   const emailRef = register({
     required: true,
     pattern: EmailRegEx,
@@ -54,24 +55,35 @@ const LoginComponent = (): JSX.Element => {
       onChange={() => {
         clearAllErrors();
       }}
+      ref={formRef}
     >
-      <h1>Login</h1>
-      <div>
-        <EmailInput
+      <div className="form-block">
+        <h1 className="form-element">Login</h1>
+      </div>
+      <div className="form-block">
+        <TextInput
+          type="email"
           name="email"
           register={emailRef}
           error={errors.email}
         />
-        <PasswordInput
+        <TextInput
+          type="password"
           name="password"
           register={passwordRef}
           error={errors.password}
         />
       </div>
-      <div>
-        <input
-          type="submit"
+      <div className="form-block">
+        <SubmitButton
+          label="Go"
+          submit={() => {
+            formRef.current?.dispatchEvent(new Event('submit'));
+          }}
         />
+        {/* <div className="input-wrapper"> */}
+        {/*  <input className="input submit" type="submit" value="Go" /> */}
+        {/* </div> */}
         {errors.common && errors.common.message && <span>{errors.common.message}</span>}
       </div>
     </form>

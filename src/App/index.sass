@@ -1,8 +1,13 @@
-@import './Common/Styles/reset.sass'
 @import './Common/Styles/variables.sass'
+@import './Common/Styles/reset.sass'
+
+@import './Common/Styles/mixins/index'
+
+@import '../Pages/Home/index.sass'
+@import '../Pages/Login/index.sass'
 
 html
-    font-size: 10px
+    font-size: $font_size-main
 
 html, body, #root
     height: 100%
@@ -14,21 +19,29 @@ body
 
     font-family: $font-main
 
-    background-color: $background
+    background-color: $background-grey
+
+    section
+        width: $width-main
 
 .menu
     display: flex
+    width: $width-main
+    margin: 0 auto
 
-    padding: 20px
+    padding: $padding-m
 
     & a
         display: inline-block
 
-        font-size: 1.6rem
+        font-size: $font_size-main
 
-        color: #fff
+        color: $font-color-orange
 
         text-decoration: none
 
-        padding-left: 10px
-        padding-right: 10px
+        padding-left: $padding-s
+        padding-right: $padding-s
+
+section
+    width: $width-main
