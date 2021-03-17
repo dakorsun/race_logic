@@ -17,7 +17,7 @@ const TextInput = ({
     let resultMessage = 'Unknown validation fail';
     if (error) {
       if (error.type === 'pattern') {
-        resultMessage = `${inputLabel} must in corresponding format`;
+        resultMessage = `${inputLabel} must be in corresponding format`;
       } else
       if (error.type === 'required') {
         resultMessage = `${inputLabel} is required`;

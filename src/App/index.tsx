@@ -18,7 +18,7 @@ function App(): JSX.Element {
       <Switch>
         {Pages.map(
           // eslint-disable-next-line react/no-array-index-key
-          (page, index) => <Route exact path={page.link} component={page.component} key={index} />,
+          (page, index) => <Route exact path={page.link} component={page.component} key={index}/>,
         )}
       </Switch>
     </>

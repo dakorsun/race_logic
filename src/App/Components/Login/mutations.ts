@@ -6,6 +6,11 @@ export const LOGIN_MUTATION = gql`
     $password: String!
   ) {
     login(credentials: {email: $email, password: $password}) {
+      id
+      email
+      firstName
+      lastName
+      role
       token
     }
   }

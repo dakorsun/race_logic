@@ -5,16 +5,16 @@ dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : undefined 
 
 const serverConfig = {
   NODE_ENV: process.env.NODE_ENV || 'development',
-  HOST: process.env.SERVER_HOST,
+  HOST: process.env.HOST,
   PORT: process.env.SERVER_PORT,
   APOLLO_PORT: process.env.SERVER_APOLLO_PORT,
   APP_SECRET_KEY: process.env.SERVER_APP_SECRET_KEY,
   POSTGRESQL: {
-    URL: process.env.POSTGRESQL_URL,
-    USER: process.env.POSTGRESQL_USER,
-    PORT: +process.env.POSTGRESQL_PORT,
-    PASSWORD: process.env.POSTGRESQL_PASSWORD,
-    DB: process.env.POSTGRESQL_DB,
+    URL: process.env.POSTGRESQL__URL,
+    USER: process.env.POSTGRESQL__USER,
+    PORT: +process.env.POSTGRESQL__PORT,
+    PASSWORD: process.env.POSTGRESQL__PASSWORD,
+    DB: process.env.POSTGRESQL__DB,
     DIALECT: 'postgres',
   },
   JWT_SECRET: process.env.JWT_SECRET,

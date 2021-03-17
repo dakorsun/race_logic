@@ -1,0 +1,13 @@
+@mixin form-block
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: stretch
+
+  &.central
+    align-items: center
+
+  &:not(:last-child)
+    margin-bottom: $margin-l
+
+

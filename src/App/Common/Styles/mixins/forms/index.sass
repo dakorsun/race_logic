@@ -1,0 +1,42 @@
+@import "./form-blocks"
+@import "./inputs"
+@import "./errors"
+@import "./buttons"
+
+@mixin form
+  padding: $padding-l
+  width: $width-modal-form-single-column
+  margin: 0 auto
+  box-shadow: 10px 10px 28px 5px $background-dark
+
+
+  background: $background-grey-light
+  border-radius: $border-radius-m
+
+  display: flex
+  justify-content: center
+  flex-direction: column
+
+  & .form-block
+    @include form-block
+
+    & .input-wrapper
+      position: relative
+
+      &:not(:last-child)
+        margin-bottom: $margin-m
+
+      @include input-textable
+
+
+    & .button-wrapper
+      &.submit
+        @include submit-button
+
+
+    & .form-element
+      text-align: center
+      color: $font-color-orange
+      font-size: $font_size-heading-main
+      line-height: $line_height-heading-main
+      font-weight: bold

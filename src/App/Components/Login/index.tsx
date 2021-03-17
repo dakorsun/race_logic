@@ -74,17 +74,14 @@ const LoginComponent = (): JSX.Element => {
           error={errors.password}
         />
       </div>
-      <div className="form-block">
+      <div className="form-block central">
         <SubmitButton
           label="Go"
+          error={errors.common && errors.common.message}
           submit={() => {
             formRef.current?.dispatchEvent(new Event('submit'));
           }}
         />
-        {/* <div className="input-wrapper"> */}
-        {/*  <input className="input submit" type="submit" value="Go" /> */}
-        {/* </div> */}
-        {errors.common && errors.common.message && <span>{errors.common.message}</span>}
       </div>
     </form>
   );

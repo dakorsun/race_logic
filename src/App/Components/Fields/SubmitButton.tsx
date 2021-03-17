@@ -1,28 +1,33 @@
 import React from 'react';
 
 interface SubmitButtonAttributes {
-  submit: () => void
-  size?: 's' | 'm' | 'l'
-  label?: string
+    submit: () => void
+    size?: 's' | 'm' | 'l'
+    label?: string
+    error?: string
 }
 
-const SubmitButton = ({ label, size, submit }: SubmitButtonAttributes):JSX.Element => (
-  <div
-    className={`button-wrapper submit ${size}`}
-    onClick={(e) => {
-      e.preventDefault();
-      submit();
-    }}
-  >
-    <div className="label">
-      {label}
+const SubmitButton = ({label, size, submit, error}: SubmitButtonAttributes): JSX.Element => (
+    <div
+        className={`button-wrapper submit ${size}`}
+        onClick={(e) => {
+            e.preventDefault();
+            submit();
+        }}
+    >
+        <div className="container">
+            <div className="label">
+                {label}
+            </div>
+        </div>
+        {error && <span className="error">{error}</span>}
     </div>
-  </div>
 );
 
 SubmitButton.defaultProps = {
-  label: 'Submit',
-  size: '',
+    label: 'Submit',
+    size: 'm',
+    error: ''
 };
 
 export default SubmitButton;

@@ -1,0 +1,35 @@
+
+@mixin submit-button
+  width: fit-content
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+
+  & .container
+    width: fit-content
+    border-radius: $border_radius-s
+    border: $border_width-input solid $color-orange
+
+    &:hover
+      cursor: pointer
+      border: $border_width-input solid $color-orange-dark
+      & .label
+        color: $font-color-orange-dark
+
+    &:active
+      border: $border_width-input solid $color-orange
+      & .label
+        color: $font-color-orange
+
+    & > *
+      font-size: $font-size-main
+      line-height: $line_height-main
+
+    & .label
+      padding: $padding-s $padding-s * 2
+      color: $font-color-orange
+      font-weight: bold
+
+  & .error
+    @include error-block
