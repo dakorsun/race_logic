@@ -3,10 +3,11 @@ import { hash, compare } from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { Field, ID, ObjectType } from 'type-graphql';
 import { LoginCredentials } from '../apollo/inputs/AuthInputs';
-import User from '../entity/User';
+// eslint-disable-next-line import/no-cycle
 import { TokenStringScalarType } from '../config/constants';
-import { TokenString } from '../config/types';
+import { TokenString, UserTokenObject } from '../config/types';
 import serverConfig from '../config/serverConfig';
+import User from '../entity/User';
 
 @ObjectType()
 export class AuthorizedUser {
@@ -25,6 +26,15 @@ export class AuthorizedUser {
 }
 
 class AuthService {
+  comparePassword(passwordToCheck: string, originalPassword: string): Promise<boolean> {
+    return compare(passwordToCheck, originalPassword);
+  }
+  decodeUserToken(token: string): UserTokenObject {
+    return jwt.verify(token, serverConfig.APP_SECRET_KEY) as UserTokenObject;
+  }
+  hashPassword(password: string): Promise<string> {
+    return hash(password, 12);
+  }
   async loginUser(credentials: LoginCredentials): Promise<AuthorizedUser> {
     try {
       const user = await User.findOne({ where: { email: credentials.email } });
@@ -32,25 +42,17 @@ class AuthService {
       const passwordValid = await this.comparePassword(credentials.password, user.password);
       if (!passwordValid) throw new Error('Password is wrong');
       const token = jwt.sign({
-        user: {
-          id: user.id,
-          role: user.role,
-        },
-      }, serverConfig.APP_SECRET_KEY);
+        id: user.id,
+        role: user.role,
+      } as unknown as UserTokenObject, serverConfig.APP_SECRET_KEY);
       return {
-        ...user.toJSON(),
+        ...user.toAuthJSON(),
         token: `Bearer ${token}`,
       } as AuthorizedUser;
     } catch (e) {
       console.error(e);
       throw e;
     }
-  }
-  hashPassword(password: string): Promise<string> {
-    return hash(password, 12);
-  }
-  comparePassword(passwordToCheck: string, originalPassword: string): Promise<boolean> {
-    return compare(passwordToCheck, originalPassword);
   }
 }
 

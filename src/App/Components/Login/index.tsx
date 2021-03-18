@@ -2,12 +2,11 @@ import React
 , { useEffect, useRef }
   from 'react';
 import { useHistory } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import { AUTH_TOKEN, EmailRegEx } from '../../../config/constants';
-import { LOGIN_MUTATION } from './mutations';
 import TextInput from '../Fields/TextInput';
 import SubmitButton from '../Fields/SubmitButton';
+import { useLoginMutation } from '../../../apollo/mutations/user';
 
 interface FormData {
   email: string,
@@ -16,7 +15,7 @@ interface FormData {
 
 const LoginComponent = (): JSX.Element => {
   const history = useHistory();
-  const [login, { data: loginMutationData, error: loginError }] = useMutation(LOGIN_MUTATION);
+  const [login, { data: loginMutationData, error: loginError }] = useLoginMutation();
   const {
     register, handleSubmit, errors, setError, clearErrors,
   } = useForm();

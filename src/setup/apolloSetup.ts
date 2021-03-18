@@ -10,6 +10,13 @@ import RacerResolver from '../apollo/resolvers/Racer.resolver';
 import RacerAtEventResolver from '../apollo/resolvers/RacerAtEvent.resolver';
 import RacerAtRaceResolver from '../apollo/resolvers/RacerAtRace.resolver';
 import UserResolver from '../apollo/resolvers/User.resolver';
+import AuthService, { AuthorizedUser } from '../services/Auth';
+import UserService from '../services/User';
+
+export interface Context {
+  req: Request
+  user: AuthorizedUser;
+}
 
 export default async () => {
   const schema = await buildSchema({
@@ -26,12 +33,23 @@ export default async () => {
   }) as GraphQLSchema;
   return new ApolloServer({
     schema,
-    context: ({ req }) => {
-      const context = {
-        req,
-        user: req.user, // `req.user` comes from `express-jwt`
-      };
-      return context;
+    context: async ({ req }) => {
+      try {
+        let user = null;
+        if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
+          const decoded = AuthService.decodeUserToken(req.headers.authorization.split(' ')[1]);
+          user = await UserService.getAuthorizedUserById(decoded.id);
+        }
+
+        const context = {
+          req,
+          user, // `req.user` comes from `express-jwt`
+        };
+        return context;
+      } catch (e) {
+        console.error(e);
+        throw e;
+      }
     },
   } as ApolloServerExpressConfig);
 };

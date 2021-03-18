@@ -13,8 +13,13 @@ export enum UserRoles {
 }
 // string format like 2000-01-31
 export interface DateRangeSearchCriteria {
-	from: Date
-	to: Date
+  from: Date
+  to: Date
+}
+
+export interface UserTokenObject {
+  id: string;
+  role: UserRoles
 }
 
 export type TokenString = `Bearer ${string}`;

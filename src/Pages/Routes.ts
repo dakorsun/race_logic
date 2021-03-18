@@ -10,7 +10,7 @@ interface Route {
   component: ComponentType<RouteComponentProps> | ComponentType
 }
 
-const Pages: Array<Route> = [
+export const SharedPages: Array<Route> = [
   {
     link: '/',
     title: 'Home',
@@ -23,4 +23,15 @@ const Pages: Array<Route> = [
   },
 ];
 
-export default Pages;
+export const AdminPages: Array<Route> = [
+  {
+    link: '/',
+    title: 'Home',
+    component: Home,
+  },
+  {
+    link: '/login',
+    title: 'Login',
+    component: Login,
+  },
+];

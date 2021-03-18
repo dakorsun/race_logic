@@ -10,7 +10,7 @@ import { CreateUserInput, UpdateUserInput } from '../inputs/UserInputs';
 export default class UserResolver {
   @Query(() => User)
   userById(@Arg('id') id: string) {
-    return UserService.getUserById(id);
+    return UserService.getUserDefaultValuesById(id);
   }
   @Mutation(() => User)
   async createUser(@Arg('data') data: CreateUserInput) {

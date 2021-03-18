@@ -14,6 +14,16 @@ export interface DefaultUser {
   lastName: string
   email: string
   role: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface AuthUser {
+  id: number
+  firstName: string
+  lastName: string
+  email: string
+  role: string
 }
 
 @Entity()
@@ -36,7 +46,23 @@ export default class User extends DefaultEntity {
   role: string;
   toJSON(): DefaultUser {
     return {
-      ...this as DefaultUser,
+      id: this.id,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      role: this.role,
+      createdAt: this.createdAt,
+      updatedAt: this.updatedAt,
+
+    };
+  }
+  toAuthJSON(): AuthUser {
+    return {
+      id: this.id,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      role: this.role,
     };
   }
 }
