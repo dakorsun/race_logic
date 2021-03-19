@@ -23,15 +23,23 @@ export const SharedPages: Array<Route> = [
   },
 ];
 
-export const AdminPages: Array<Route> = [
-  {
-    link: '/',
-    title: 'Home',
-    component: Home,
-  },
-  {
-    link: '/login',
-    title: 'Login',
-    component: Login,
-  },
-];
+// interface AdminPagesMapOptions {
+//
+// }
+export const AdminPagesMap = (
+  // options: AdminPagesMapOptions
+): Array<Route> => {
+  const result = [
+    {
+      link: '/',
+      title: 'Admin Home',
+      component: Home,
+    },
+  ];
+  // result.push({
+  //   link: '/logout',
+  //   title: 'Logout',
+  //   component: Logout,
+  // });
+  return result;
+};

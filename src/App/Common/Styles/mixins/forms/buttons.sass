@@ -11,13 +11,22 @@
     border-radius: $border_radius-s
     border: $border_width-input solid $color-orange
 
+    &.disabled
+      border: $border_width-input solid $color-orange-dark
+
+      &:hover
+        cursor: default
+
+      & .label
+        color: $font-color-orange-dark
+
     &:hover
       cursor: pointer
       border: $border_width-input solid $color-orange-dark
       & .label
         color: $font-color-orange-dark
 
-    &:active
+    &:active:not(.disabled)
       border: $border_width-input solid $color-orange
       & .label
         color: $font-color-orange

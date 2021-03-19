@@ -1,8 +1,9 @@
 import React from 'react';
-import { AdminPages } from 'Pages/Routes';
+import { AdminPagesMap } from 'Pages/Routes';
 import { Link, Route, Switch } from 'react-router-dom';
 
-function SharedAuthorities(): JSX.Element {
+function AdminAuthorities(): JSX.Element {
+  const AdminPages = AdminPagesMap();
   return (
     <>
       <div className="menu">
@@ -20,4 +21,4 @@ function SharedAuthorities(): JSX.Element {
   );
 }
 
-export default SharedAuthorities;
+export default AdminAuthorities;

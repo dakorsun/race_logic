@@ -1,5 +1,7 @@
-import { gql, useMutation } from '@apollo/client';
-import { AUTH_TOKEN } from '../../config/constants';
+import {
+  gql,
+  useMutation,
+} from '@apollo/client';
 
 export const LOGIN_MUTATION = gql`
   mutation loginMutation(
@@ -17,8 +19,4 @@ export const LOGIN_MUTATION = gql`
   }
 `;
 
-export const useLoginMutation = () => useMutation(LOGIN_MUTATION, {
-  onCompleted: (data) => {
-    localStorage.setItem(AUTH_TOKEN, data.login.token);
-  },
-});
+export const useLoginMutation = () => useMutation(LOGIN_MUTATION);

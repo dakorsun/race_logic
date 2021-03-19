@@ -48,12 +48,13 @@ module.exports = (env) => {
   if (env === 'production') {
     modules.sass.use.splice(2, 0, { loader: 'postcss-loader' });
     modules.sassIsomorph.use.splice(2, 0, { loader: 'postcss-loader' });
-  } else {
-    watch = true;
-    watchOptions = {
-      ignored: ['/node_modules', '/server', '/dist'],
-    };
   }
+  // else {
+  //   watch = true;
+  //   watchOptions = {
+  //     ignored: ['/node_modules', '/server', '/dist'],
+  //   };
+  // }
 
   const resolve = {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],

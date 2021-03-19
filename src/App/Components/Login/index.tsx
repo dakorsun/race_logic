@@ -3,10 +3,12 @@ import React
   from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { AUTH_TOKEN, EmailRegEx } from '../../../config/constants';
+import { EmailRegEx } from '../../../config/constants';
 import TextInput from '../Fields/TextInput';
 import SubmitButton from '../Fields/SubmitButton';
+// eslint-disable-next-line import/no-cycle
 import { useLoginMutation } from '../../../apollo/mutations/user';
+import { useAuthToken } from '../../Middlewares/AuthGate';
 
 interface FormData {
   email: string,
@@ -15,9 +17,12 @@ interface FormData {
 
 const LoginComponent = (): JSX.Element => {
   const history = useHistory();
-  const [login, { data: loginMutationData, error: loginError }] = useLoginMutation();
+  const [, setAuthToken] = useAuthToken();
+  const [loginMutation, { data: loginMutationData, error: loginMutationError, loading }] = useLoginMutation();
   const {
-    register, handleSubmit, errors, setError, clearErrors,
+    register, handleSubmit, errors,
+    setError,
+    clearErrors,
   } = useForm();
 
   const formRef = useRef(null);
@@ -28,7 +33,7 @@ const LoginComponent = (): JSX.Element => {
   const passwordRef = register({ required: true });
 
   const onSubmit = async (data: FormData) => {
-    await login({ variables: data });
+    await loginMutation({ variables: data });
   };
 
   const clearAllErrors = () => {
@@ -37,16 +42,16 @@ const LoginComponent = (): JSX.Element => {
 
   useEffect(() => {
     if (loginMutationData && loginMutationData.login.token) {
-      localStorage.setItem(AUTH_TOKEN, loginMutationData.login.token);
+      setAuthToken(loginMutationData.login.token);
       history.push('/');
     }
   }, [loginMutationData]);
   useEffect(() => {
-    if (loginError) {
-      setError('common', { message: loginError.message });
-      console.log('loginError: ', loginError);
+    if (loginMutationError) {
+      setError('common', { message: loginMutationError.message });
+      console.log('loginError: ', loginMutationError);
     }
-  }, [loginError]);
+  }, [loginMutationError]);
 
   return (
     <form
@@ -77,6 +82,10 @@ const LoginComponent = (): JSX.Element => {
         <SubmitButton
           label="Go"
           error={errors.common && errors.common.message}
+          disabled={
+            loading
+            || !!Object.keys(errors).length
+          }
           submit={() => {
             formRef.current?.dispatchEvent(new Event('submit'));
           }}
