@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 import {
   Column,
-  Entity,
+  Entity, TableInheritance,
 } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { DefaultEntity } from './map';
@@ -27,6 +27,7 @@ export interface AuthUser {
 }
 
 @Entity()
+@TableInheritance({ column: { type: 'varchar', name: 'type' } })
 @ObjectType()
 export default class User extends DefaultEntity {
   @Field(() => String)
