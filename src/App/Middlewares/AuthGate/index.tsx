@@ -14,9 +14,7 @@ interface IAuthoritiesMapper {
 //
 const AuthoritiesMapper = ({ isLoggedIn, role }: IAuthoritiesMapper): JSX.Element => {
   if (isLoggedIn) {
-    console.log('mapper logged in');
     if (role === UserRoles.ROLE_ADMIN) {
-      console.log('mapper role admin');
       return <AdminAuthorities />;
     }
   }
@@ -42,7 +40,6 @@ export const AuthGate = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       if (called && !loading) {
-        console.log('data?.me?.role: ', data?.me?.role);
         if (data?.me?.role) {
           await userRoleVar(data?.me?.role);
           await setLocalUserRole(data?.me?.role);
@@ -60,10 +57,6 @@ export const AuthGate = (): JSX.Element => {
     })();
   },
   [data]);
-
-  useEffect(() => {
-    console.log('userRoleVar(): ', userRoleVar());
-  }, [userRoleVar(), isLoggedInVar()]);
 
   if (loading) {
     return null;
