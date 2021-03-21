@@ -1,6 +1,6 @@
 import React from 'react';
-import { AdminPages } from 'Pages/Routes';
-import { Link, Route, Switch } from 'react-router-dom';
+import { AdminPages, PagesToNavigationMapper, PagesToRoutesMapper } from 'Pages/Routes';
+import { Switch } from 'react-router-dom';
 import LogoutComponent from '../../Components/Logout';
 
 function AdminAuthorities(): JSX.Element {
@@ -8,8 +8,7 @@ function AdminAuthorities(): JSX.Element {
     <>
       <div className="header">
         <div className="left-block">
-          {/* eslint-disable-next-line react/no-array-index-key */}
-          {AdminPages.map((page) => <span key={page.link}><Link to={page.link}>{page.title}</Link></span>)}
+          {PagesToNavigationMapper(AdminPages)}
         </div>
         <div className="right-block">
           <LogoutComponent />
@@ -17,10 +16,7 @@ function AdminAuthorities(): JSX.Element {
       </div>
 
       <Switch>
-        {AdminPages.map(
-          // eslint-disable-next-line react/no-array-index-key
-          (page) => <Route exact path={page.link} component={page.component} key={page.link} />,
-        )}
+        {PagesToRoutesMapper(AdminPages)}
       </Switch>
     </>
   );

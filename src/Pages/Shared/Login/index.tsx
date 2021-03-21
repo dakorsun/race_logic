@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginComponent from '../../App/Components/Login';
+import LoginComponent from '../../../App/Components/Login';
 
 const LoginPage = (): JSX.Element => (
   <section className="login">
