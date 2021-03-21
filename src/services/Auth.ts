@@ -29,8 +29,13 @@ class AuthService {
   comparePassword(passwordToCheck: string, originalPassword: string): Promise<boolean> {
     return compare(passwordToCheck, originalPassword);
   }
-  decodeUserToken(token: string): UserTokenObject {
-    return jwt.verify(token, serverConfig.APP_SECRET_KEY) as UserTokenObject;
+  decodeUserToken(token: string): UserTokenObject | null {
+    try {
+      return jwt.verify(token, serverConfig.JWT.SECRET) as UserTokenObject;
+    } catch (e) {
+      console.error(e);
+      return null;
+    }
   }
   hashPassword(password: string): Promise<string> {
     return hash(password, 12);
@@ -44,7 +49,9 @@ class AuthService {
       const token = jwt.sign({
         id: user.id,
         role: user.role,
-      } as unknown as UserTokenObject, serverConfig.APP_SECRET_KEY);
+      } as unknown as UserTokenObject, serverConfig.JWT.SECRET, {
+        expiresIn: serverConfig.JWT.EXPIRES_IN,
+      });
       return {
         ...user.toAuthJSON(),
         token: `Bearer ${token}`,

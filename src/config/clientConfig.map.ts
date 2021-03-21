@@ -1,4 +1,11 @@
+export interface ApolloConfig {
+  HOST: string
+  PORT: string
+  QUERY: {
+    POLL_INTERVAL: number
+  }
+}
+
 export interface ClientConfig {
-  APOLLO_HOST: string;
-  APOLLO_PORT: string;
+  readonly APOLLO: ApolloConfig
 }

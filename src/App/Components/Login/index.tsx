@@ -1,6 +1,4 @@
-import React
-, { useEffect, useRef }
-  from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { EmailRegEx } from '../../../config/constants';
@@ -8,7 +6,8 @@ import TextInput from '../Fields/TextInput';
 import SubmitButton from '../Fields/SubmitButton';
 // eslint-disable-next-line import/no-cycle
 import { useLoginMutation } from '../../../apollo/mutations/user';
-import { useAuthToken } from '../../Middlewares/AuthGate';
+import { useAuthToken, userRoleVar } from '../../Hooks/UseAuthToken';
+import { AuthUserContext } from '../../Middlewares/AuthGate';
 
 interface FormData {
   email: string,
@@ -18,7 +17,10 @@ interface FormData {
 const LoginComponent = (): JSX.Element => {
   const history = useHistory();
   const [, setAuthToken] = useAuthToken();
-  const [loginMutation, { data: loginMutationData, error: loginMutationError, loading }] = useLoginMutation();
+  const [loginMutation, {
+    data: loginMutationData, error: loginMutationError, called, loading,
+  }] = useLoginMutation();
+  const { update } = useContext(AuthUserContext);
   const {
     register, handleSubmit, errors,
     setError,
@@ -41,15 +43,20 @@ const LoginComponent = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (loginMutationData && loginMutationData.login.token) {
-      setAuthToken(loginMutationData.login.token);
-      history.push('/');
-    }
+    (async () => {
+      if (called && !loading) {
+        if (loginMutationData?.login) {
+          await setAuthToken(loginMutationData.login.token);
+          await userRoleVar(loginMutationData.login.role);
+          await update();
+          await history.push('/');
+        }
+      }
+    })();
   }, [loginMutationData]);
   useEffect(() => {
     if (loginMutationError) {
       setError('common', { message: loginMutationError.message });
-      console.log('loginError: ', loginMutationError);
     }
   }, [loginMutationError]);
 

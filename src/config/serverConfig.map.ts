@@ -18,6 +18,11 @@ interface SmtpEmailConfig {
   readonly MESSAGE_FROM: string,
 }
 
+interface JWTConfig {
+  readonly EXPIRES_IN: string,
+  readonly SECRET: string,
+}
+
 export interface ServerConfig {
   readonly NODE_ENV: string;
   readonly HOST: string;
@@ -25,7 +30,6 @@ export interface ServerConfig {
   readonly APOLLO_PORT: string | number;
   readonly APP_SECRET_KEY: string;
   readonly POSTGRESQL: PostgressSqlConfig;
-  readonly JWT_SECRET: string;
-  readonly JWT_EXPIRATION_TIME: string;
   readonly EMAIL: SmtpEmailConfig
+  readonly JWT: JWTConfig
 }

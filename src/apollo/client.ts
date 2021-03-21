@@ -1,10 +1,10 @@
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import clientConfig from '../config/clientConfig';
-import { useAuthToken } from '../App/Middlewares/AuthGate';
+import { useAuthToken } from '../App/Hooks/UseAuthToken';
 
 const httpLink = createHttpLink({
-  uri: `${clientConfig.APOLLO_HOST}:${clientConfig.APOLLO_PORT}`,
+  uri: `${clientConfig.APOLLO.HOST}:${clientConfig.APOLLO.PORT}`,
 });
 
 const authLink = setContext((_, { headers }) => {

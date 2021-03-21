@@ -2,6 +2,7 @@ import { buildSchema } from 'type-graphql';
 import { ApolloServer } from 'apollo-server';
 import { GraphQLSchema } from 'graphql';
 import { ApolloServerExpressConfig } from 'apollo-server-express';
+// eslint-disable-next-line import/no-cycle
 import AuthResolver from '../apollo/resolvers/Auth.resolver';
 import EventResolver from '../apollo/resolvers/Event.resolver';
 import LapResolver from '../apollo/resolvers/Lap.resolver';
@@ -38,7 +39,9 @@ export default async () => {
         let user = null;
         if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
           const decoded = AuthService.decodeUserToken(req.headers.authorization.split(' ')[1]);
-          user = await UserService.getAuthorizedUserById(decoded.id);
+          if (decoded) {
+            user = await UserService.getAuthorizedUserById(decoded.id);
+          }
         }
 
         const context = {

@@ -1,4 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
+import clientConfig from '../../config/clientConfig';
 
 const ME_QUERY = gql`
   query meQuery {
@@ -12,4 +13,4 @@ const ME_QUERY = gql`
   }   
 `;
 
-export const useMeQuery = () => useQuery(ME_QUERY);
+export const useMeQuery = () => useQuery(ME_QUERY, { pollInterval: clientConfig.APOLLO.QUERY.POLL_INTERVAL });

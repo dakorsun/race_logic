@@ -1,8 +1,13 @@
 import { ClientConfig } from './clientConfig.map';
 
 const clientConfig = {
-  APOLLO_HOST: process.env.HOST,
-  APOLLO_PORT: process.env.SERVER_APOLLO_PORT,
+  APOLLO: {
+    HOST: process.env.HOST,
+    PORT: process.env.APOLLO__PORT,
+    QUERY: {
+      POLL_INTERVAL: +process.env.APOLLO__QUERY__POLL_INTERVAL,
+    },
+  },
 } as ClientConfig;
 
 export default Object.freeze(clientConfig);

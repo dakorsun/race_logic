@@ -7,8 +7,12 @@ const serverConfig = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   HOST: process.env.HOST,
   PORT: process.env.SERVER_PORT,
-  APOLLO_PORT: process.env.SERVER_APOLLO_PORT,
+  APOLLO_PORT: process.env.APOLLO__PORT,
   APP_SECRET_KEY: process.env.SERVER_APP_SECRET_KEY,
+  JWT: {
+    EXPIRES_IN: process.env.JWT__EXPIRES_IN,
+    SECRET: process.env.JWT__SECRET,
+  },
   POSTGRESQL: {
     URL: process.env.POSTGRESQL__URL,
     USER: process.env.POSTGRESQL__USER,
@@ -17,8 +21,6 @@ const serverConfig = {
     DB: process.env.POSTGRESQL__DB,
     DIALECT: 'postgres',
   },
-  JWT_SECRET: process.env.JWT_SECRET,
-  JWT_EXPIRATION_TIME: process.env.JWT_EXPIRATION_TIME,
   EMAIL: {
     HOST: process.env.EMAIL_HOST,
     PORT: process.env.EMAIL_PORT,

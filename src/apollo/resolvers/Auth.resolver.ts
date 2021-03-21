@@ -12,7 +12,7 @@ import { Context } from '../../setup/apolloSetup';
 
 @Resolver()
 export default class AuthResolver {
-  @Query(() => AuthorizedUser || null)
+  @Query(() => (AuthorizedUser || null), { nullable: true })
   async me(@Ctx() context: Context) {
     let user = null;
     if (context.user) {
