@@ -24,7 +24,7 @@ export const useLogout = () => {
   const apolloClient = useApolloClient();
 
   return async () => {
-    await apolloClient.resetStore();
+    await apolloClient.clearStore();
     removeAuthToken();
   };
 };

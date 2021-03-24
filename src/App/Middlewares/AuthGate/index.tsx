@@ -58,10 +58,6 @@ export const AuthGate = (): JSX.Element => {
   },
   [data]);
 
-  if (loading) {
-    return null;
-  }
-
   return (
     <AuthUserContext.Provider value={{ update: refetch }}>
       <AuthoritiesMapper isLoggedIn={localIsLoggedIn} role={localUserRole} />

@@ -1,10 +1,16 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
+import { FunctionComponent } from 'react';
+import {
+  ApolloClient, ApolloProvider, createHttpLink, InMemoryCache,
+} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import fetch from 'cross-fetch';
+import { ApolloProviderProps } from '@apollo/client/react/context';
 import clientConfig from '../config/clientConfig';
 import { useAuthToken } from '../App/Hooks/UseAuthToken';
 
 const httpLink = createHttpLink({
   uri: `${clientConfig.APOLLO.HOST}:${clientConfig.APOLLO.PORT}`,
+  fetch,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -23,4 +29,9 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-export default client;
+const useApollo = (): [FunctionComponent<ApolloProviderProps<any>>, ApolloClient<any>] => ([
+  ApolloProvider,
+  client,
+]);
+
+export default useApollo;

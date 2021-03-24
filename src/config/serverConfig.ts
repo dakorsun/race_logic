@@ -6,8 +6,10 @@ dotenv.config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : undefined 
 const serverConfig = {
   NODE_ENV: process.env.NODE_ENV || 'development',
   HOST: process.env.HOST,
-  PORT: process.env.SERVER_PORT,
-  APOLLO_PORT: process.env.APOLLO__PORT,
+  PORT: process.env.PORT,
+  APOLLO: {
+    PORT: process.env.APOLLO__PORT,
+  },
   APP_SECRET_KEY: process.env.SERVER_APP_SECRET_KEY,
   JWT: {
     EXPIRES_IN: process.env.JWT__EXPIRES_IN,

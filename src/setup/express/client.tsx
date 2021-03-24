@@ -7,6 +7,7 @@ import App from 'App';
 import React from 'react';
 import Html from '../../Html/Server';
 import serverConfig from '../../config/serverConfig';
+import useApollo from '../../apollo/client';
 
 export default (app: express.Application) => {
   const jsFiles: Array<string> = [];
@@ -20,12 +21,15 @@ export default (app: express.Application) => {
 
   app.use('/assets', express.static('./dist/assets'));
 
+  const [ApolloProvider, client] = useApollo();
   app.get('*', async (req: Request, res: Response) => {
     ReactDOMServer.renderToNodeStream(
       <Html scripts={jsFiles}>
-        <StaticRouter location={req.url} context={{}}>
-          <App />
-        </StaticRouter>
+        <ApolloProvider client={client}>
+          <StaticRouter location={req.url} context={{}}>
+            <App />
+          </StaticRouter>
+        </ApolloProvider>
       </Html>,
     ).pipe(res);
   });

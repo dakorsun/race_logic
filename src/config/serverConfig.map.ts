@@ -27,7 +27,9 @@ export interface ServerConfig {
   readonly NODE_ENV: string;
   readonly HOST: string;
   readonly PORT: string | number;
-  readonly APOLLO_PORT: string | number;
+  readonly APOLLO: {
+    PORT: string| number
+  };
   readonly APP_SECRET_KEY: string;
   readonly POSTGRESQL: PostgressSqlConfig;
   readonly EMAIL: SmtpEmailConfig

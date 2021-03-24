@@ -40,7 +40,7 @@ export const SharedPages: Array<Page> = [
   {
     link: '*',
     title: null,
-    component: RedirectToRoot,
+    component: NotFound,
   },
 ];
 
@@ -53,6 +53,6 @@ export const AdminPages = [
   {
     link: '*',
     title: null,
-    component: RedirectToRoot,
+    component: NotFound,
   },
 ];
