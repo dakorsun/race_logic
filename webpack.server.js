@@ -14,8 +14,22 @@ module.exports = (env, argv) => {
   } = webpackConfig(modeEnv);
 
   const optimizations = {
+    minimize: true,
     minimizer: [
-      new TerserPlugin(),
+      /* required options for terser.
+      After node-localstorage/register functionality provided - in bundle, terser was creating functions with same "e"-names for each apolloServerSchemaConfig resolver (what graphql lib was definitely not appreciating)
+       */
+      new TerserPlugin({
+        terserOptions: {
+          compress: false,
+          keep_classnames: true,
+          keep_fnames: true,
+          mangle: {
+            keep_fnames: true,
+            keep_classnames: true,
+          },
+        },
+      }),
     ],
   };
 
