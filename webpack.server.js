@@ -46,7 +46,7 @@ module.exports = (env, argv) => {
       ],
     },
     entry: {
-      main: path.resolve(__dirname, 'src/Server.ts'),
+      main: path.resolve(__dirname, './src/Server.ts'),
     },
     output: {
       filename: '[name].js',
@@ -58,7 +58,7 @@ module.exports = (env, argv) => {
     optimization: optimizations,
     target: 'node',
     externals: [nodeExternals()],
-    watch,
-    watchOptions,
+    // watch,
+    // watchOptions,
   };
 };

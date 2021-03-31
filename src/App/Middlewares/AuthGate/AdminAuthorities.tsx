@@ -1,6 +1,6 @@
 import React from 'react';
-import { AdminPages, PagesToNavigationMapper, PagesToRoutesMapper } from 'Pages/Routes';
 import { Switch } from 'react-router-dom';
+import { AdminPages, PagesToNavigationMapper, PagesToRoutesMapper } from 'Pages/Routes';
 // eslint-disable-next-line import/no-cycle
 import LogoutComponent from '../../Components/Logout';
 
