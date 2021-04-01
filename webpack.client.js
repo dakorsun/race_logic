@@ -36,7 +36,7 @@ module.exports = (env, argv) => {
   return {
     // target: 'node',
     devServer: {
-      contentBase: path.join(__dirname, 'dist'),
+      contentBase: [path.join(__dirname, 'dist')],
       compress: true,
       port: 4200,
       watchContentBase: true,
@@ -50,6 +50,8 @@ module.exports = (env, argv) => {
       rules: [
         modules.js,
         modules.sass,
+        modules.woff,
+        modules.files,
       ],
     },
     plugins: [

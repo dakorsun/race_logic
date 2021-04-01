@@ -15,6 +15,26 @@ module.exports = (env) => {
         },
       ],
     },
+    woff: {
+      test: /\.(woff|woff2)$/,
+      use: {
+        loader: 'url-loader',
+        options: {
+          name: 'fonts/[hash].[ext]',
+          limit: 5000,
+          mimetype: 'application/font-woff',
+        },
+      },
+    },
+    files: {
+      test: /\.(ttf|eot|svg)$/,
+      use: {
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[hash].[ext]',
+        },
+      },
+    },
     sass: {
       test: /\.(sa|c)ss$/,
       use: [
@@ -29,12 +49,14 @@ module.exports = (env) => {
       ],
     },
     sassIsomorph: {
-      test: /\.sass$/,
+      test: /\.(sa|c)ss$/,
       use: [
         {
           loader: MiniCssExtractPlugin.loader,
         },
-        'css-loader',
+        {
+          loader: 'css-loader',
+        },
         {
           loader: 'sass-loader',
           options: {
@@ -46,8 +68,10 @@ module.exports = (env) => {
   };
 
   if (env === 'production') {
-    modules.sass.use.splice(2, 0, { loader: 'postcss-loader' });
-    modules.sassIsomorph.use.splice(2, 0, { loader: 'postcss-loader' });
+    // modules.sass.use.splice(2, 0, { loader: 'postcss-loader' });
+    // modules.sassIsomorph.use.splice(2, 0, { loader: 'postcss-loader' });
+
+    console.log('modules.sass.use: ', modules.sass.use);
   }
   // else {
   //   watch = true;

@@ -43,6 +43,8 @@ module.exports = (env, argv) => {
       rules: [
         modules.js,
         modules.sassIsomorph,
+        modules.woff,
+        modules.files,
       ],
     },
     entry: {
