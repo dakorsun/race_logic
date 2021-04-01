@@ -63,7 +63,7 @@ module.exports = (env, argv) => {
       new Dotenv(),
     ],
     entry: {
-      main: './src/Client.tsx',
+      main: './src/client/index.tsx',
     },
     output: {
       filename: watchMode ? 'assets/[name].[hash].js' : 'assets/[name].[chunkhash].js',

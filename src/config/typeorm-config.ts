@@ -1,13 +1,13 @@
 import { PostgresConnectionOptions } from 'typeorm/driver/postgres/PostgresConnectionOptions';
 import serverConfig from './serverConfig';
 
-import Event from '../entity/Event';
-import Lap from '../entity/Lap';
-import Race from '../entity/Race';
-import Racer from '../entity/Racer';
-import RacerAtEvent from '../entity/RacerAtEvent';
-import RacerAtRace from '../entity/RacerAtRace';
-import User from '../entity/User';
+import Event from '../server/entity/Event';
+import Lap from '../server/entity/Lap';
+import Race from '../server/entity/Race';
+import Racer from '../server/entity/Racer';
+import RacerAtEvent from '../server/entity/RacerAtEvent';
+import RacerAtRace from '../server/entity/RacerAtRace';
+import User from '../server/entity/User';
 
 const typeormConfig = {
   type: 'postgres',

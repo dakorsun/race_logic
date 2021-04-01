@@ -48,7 +48,7 @@ module.exports = (env, argv) => {
       ],
     },
     entry: {
-      main: path.resolve(__dirname, './src/Server.ts'),
+      main: path.resolve(__dirname, './src/server/index.ts'),
     },
     output: {
       filename: '[name].js',

@@ -1,0 +1,39 @@
+@import "~@blueprintjs/core/lib/css/blueprint.css"
+@import "~@blueprintjs/icons/lib/css/blueprint-icons.css"
+@import "~@blueprintjs/datetime/lib/css/blueprint-datetime.css"
+
+@import 'src/client/App/Common/Styles/variables'
+@import 'src/client/App/Common/Styles/reset'
+
+@import 'src/client/App/Common/Styles/mixins/index'
+
+@import 'src/client/Pages/Shared/Home/index'
+@import 'src/client/Pages/Shared/Login/index'
+
+@import 'src/client/Pages/Admin/Home/index'
+@import 'src/client/Pages/Admin/Events/index'
+
+html
+  font-size: $font_size-main
+
+html, body, #root
+  height: 100%
+
+body
+  -webkit-font-smoothing: antialiaseddc
+  -webkit-text-size-adjust: 100%
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+
+  font-family: $font-main
+
+  background-color: $background-grey
+
+  section
+    width: $width-main
+    margin: 0 auto
+
+.header
+  @include header
+
+section
+  width: $width-main

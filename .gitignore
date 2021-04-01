@@ -104,7 +104,7 @@ dist
 .tern-port
 
 # Server build ouput
-server
+./server
 
 # node-localstorage stroe
 ./scratch

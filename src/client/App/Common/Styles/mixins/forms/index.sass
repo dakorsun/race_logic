@@ -1,0 +1,48 @@
+@import "src/client/App/Common/Styles/mixins/forms/form-blocks"
+@import "src/client/App/Common/Styles/mixins/forms/inputs"
+@import "src/client/App/Common/Styles/mixins/forms/errors"
+@import "src/client/App/Common/Styles/mixins/forms/buttons"
+
+@mixin form($bg-color)
+  padding: $padding-l !important
+  width: 100%
+  //background: transparent
+  background: $bg-color
+  //border-radius: $border-radius-m
+
+  display: flex
+  justify-content: center
+  flex-direction: column
+
+  & .form-block
+    @include form-block
+
+    & .input-wrapper
+      position: relative
+
+      &.half
+        width: 48%
+        margin-right: 1.5%
+
+      &:not(:last-child)
+        margin-bottom: $margin-m
+
+      @include input-textable($bg-color)
+      @include internal-date-picker($bg-color)
+
+    & .button-wrapper
+      &.submit
+        @include submit-button-wrapper
+
+
+    & .form-element
+      text-align: center
+      color: $font-color-orange
+      font-size: $font_size-heading-main
+      line-height: $line_height-heading-main
+      font-weight: bold
+
+@mixin form-modal
+  width: $width-modal-form-single-column
+  margin: 0 auto
+  box-shadow: 10px 10px 28px 5px $background-dark

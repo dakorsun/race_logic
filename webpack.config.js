@@ -3,8 +3,6 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env) => {
-  let watch; let
-    watchOptions;
   const modules = {
     js: {
       test: /\.ts(x?)$/,
@@ -68,30 +66,22 @@ module.exports = (env) => {
   };
 
   if (env === 'production') {
-    // modules.sass.use.splice(2, 0, { loader: 'postcss-loader' });
-    // modules.sassIsomorph.use.splice(2, 0, { loader: 'postcss-loader' });
+    modules.sass.use.splice(2, 0, { loader: 'postcss-loader' });
+    modules.sassIsomorph.use.splice(2, 0, { loader: 'postcss-loader' });
 
     console.log('modules.sass.use: ', modules.sass.use);
   }
-  // else {
-  //   watch = true;
-  //   watchOptions = {
-  //     ignored: ['/node_modules', '/server', '/dist'],
-  //   };
-  // }
 
   const resolve = {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      App: path.resolve(__dirname, 'src/App/'),
-      Pages: path.resolve(__dirname, 'src/Pages/'),
+      App: path.resolve(__dirname, 'src/client/App/'),
+      Pages: path.resolve(__dirname, 'src/client/Pages/'),
     },
   };
 
   return {
     modules,
     resolve,
-    watch,
-    watchOptions,
   };
 };
