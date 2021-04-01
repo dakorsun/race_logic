@@ -5,7 +5,9 @@ import Home from 'Pages/Shared/Home';
 import Login from 'Pages/Shared/Login';
 
 import AdminHome from 'Pages/Admin/Home';
-import RedirectToRoot from '../App/Components/RedirectToRoot';
+import AdminEventsPage from 'Pages/Admin/Events';
+// import RedirectToRoot from '../App/Components/RedirectToRoot';
+import NotFound from '../App/Components/NotFound';
 
 interface Page {
   link: string
@@ -49,6 +51,11 @@ export const AdminPages = [
     link: '/',
     title: 'Admin',
     component: AdminHome,
+  },
+  {
+    link: '/events',
+    title: 'Events',
+    component: AdminEventsPage,
   },
   {
     link: '*',

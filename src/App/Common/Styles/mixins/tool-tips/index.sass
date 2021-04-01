@@ -1,0 +1,63 @@
+@mixin green_button
+  background: $color-orange
+  border: $border_width-input solid $color-green
+  color: $font-color-green
+
+  &:hover
+    background: $color-orange-dark
+    border: $border_width-input solid $color-green-dark
+    color: $font-color-green-dark
+
+@mixin red_button
+  background: $color-orange
+  border: $border_width-input solid $color-red
+  color: $font-color-red
+
+  &:hover
+    background: $color-orange-dark
+  border: $border_width-input solid $color-red-dark
+    color: $font-color-red-dark
+
+@mixin button-default
+  & .button
+    padding: $padding-s
+    font-size: $font-size-main
+    font-weight: bold
+    line-height: $line_height-main
+    border: $border_width-input solid $color-orange
+    border-radius: $border_radius-m
+    color: $font-color-orange
+    background: transparent
+
+    min-width: 80px
+
+    vertical-align: center
+    text-align: center
+
+    &:hover
+      cursor: pointer
+      border: $border_width-input solid $color-orange-dark
+      color: $font-color-orange-dark
+
+@mixin button-trigger
+  & .button.trigger
+    @include green_button
+
+    &.active
+      @include red_button
+
+@mixin button-submit
+ & .button
+   &.disabled
+     border: $border_width-input solid $color-orange-dark
+
+     &:hover
+       cursor: default
+
+     & .label
+       color: $font-color-orange-dark
+
+   &:active:not(.disabled)
+     border: $border_width-input solid $color-orange
+     & .label
+       color: $font-color-orange

@@ -1,4 +1,4 @@
-import { buildSchema } from 'type-graphql';
+import { buildSchemaSync } from 'type-graphql';
 import { ApolloServer } from 'apollo-server';
 import { GraphQLSchema } from 'graphql';
 import { ApolloServerExpressConfig } from 'apollo-server-express';
@@ -20,7 +20,7 @@ export interface Context {
 }
 
 export default async () => {
-  const schema = await buildSchema({
+  const schema = buildSchemaSync({
     resolvers: [
       AuthResolver,
       EventResolver,

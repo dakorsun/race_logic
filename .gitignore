@@ -105,3 +105,6 @@ dist
 
 # Server build ouput
 server
+
+# node-localstorage stroe
+./scratch

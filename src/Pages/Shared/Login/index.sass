@@ -1,5 +1,8 @@
+//@import 'src/App/index.sass'
 section.login
+  @include shared-page
   margin: 160px auto
 
   form
-    @include form
+    @include form($background-grey-light)
+    @include form-modal

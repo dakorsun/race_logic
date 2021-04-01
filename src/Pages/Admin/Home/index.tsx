@@ -2,8 +2,8 @@ import React from 'react';
 
 function AdminHome(): JSX.Element {
   return (
-    <section className="home">
-      <h1>Home page</h1>
+    <section className="admin home">
+      <h1>Admin home page</h1>
     </section>
   );
 }

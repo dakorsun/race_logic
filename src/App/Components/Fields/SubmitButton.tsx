@@ -21,7 +21,7 @@ const SubmitButton = ({
       }
     }}
   >
-    <div className={`container${disabled ? ' disabled' : ''}`}>
+    <div className={`button${disabled ? ' disabled' : ''}`}>
       <div className="label">
         {label}
       </div>

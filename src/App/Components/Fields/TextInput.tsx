@@ -7,10 +7,11 @@ interface TextInputAttributes {
   type?: string,
   error?: { type: string }
   label?: string
+  half?: boolean
 }
 
 const TextInput = ({
-  name, label, register, error, type,
+  name, label, register, error, type, half,
 }:TextInputAttributes): JSX.Element => {
   const inputLabel: string = label || capitalizeString(name);
   const errorFormatter = useMemo(() => {
@@ -26,7 +27,7 @@ const TextInput = ({
     return resultMessage;
   }, [error]);
   return (
-    <div className="input-wrapper">
+    <div className={`input-wrapper${half ? ' half' : ''}`}>
       <label htmlFor={name} className={`input ${type}`}>
         <input
           className={`input ${type} field`}
@@ -47,5 +48,6 @@ TextInput.defaultProps = {
   label: null,
   error: null,
   type: 'text',
+  half: false,
 };
 export default TextInput;

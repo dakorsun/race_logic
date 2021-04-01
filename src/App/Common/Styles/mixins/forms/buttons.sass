@@ -1,44 +1,12 @@
 
-@mixin submit-button
+@mixin submit-button-wrapper
   width: fit-content
   display: flex
   flex-direction: column
   justify-content: center
   align-items: center
-
-  & .container
-    width: fit-content
-    border-radius: $border_radius-s
-    border: $border_width-input solid $color-orange
-
-    &.disabled
-      border: $border_width-input solid $color-orange-dark
-
-      &:hover
-        cursor: default
-
-      & .label
-        color: $font-color-orange-dark
-
-    &:hover
-      cursor: pointer
-      border: $border_width-input solid $color-orange-dark
-      & .label
-        color: $font-color-orange-dark
-
-    &:active:not(.disabled)
-      border: $border_width-input solid $color-orange
-      & .label
-        color: $font-color-orange
-
-    & > *
-      font-size: $font-size-main
-      line-height: $line_height-main
-
-    & .label
-      padding: $padding-s $padding-s * 2
-      color: $font-color-orange
-      font-weight: bold
+  @include button-default
+  @include button-submit
 
   & .error
     @include error-block

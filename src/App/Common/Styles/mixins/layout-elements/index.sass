@@ -1,0 +1,37 @@
+.row_element
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  align-items: center
+
+  &.column
+    flex-direction: column
+    align-items: stretch
+
+    & > *
+      width: 100%
+
+  &.right
+    justify-content: flex-end
+
+  &:not(:last-child)
+    margin-bottom: $margin-m
+    border-bottom: $border_width-layout-elements solid $font-color-dark
+
+  & .block
+    display: flex
+    justify-content: space-between
+    flex-direction: row
+
+    &:not(:last-child)
+      margin-bottom: $margin-s
+
+
+
+    &.column
+      flex-direction: column
+
+    &.right
+      justify-content: flex-end
+
+
