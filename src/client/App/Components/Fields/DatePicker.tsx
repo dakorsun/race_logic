@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { Controller, ControllerRenderProps } from 'react-hook-form';
+import { Controller, ControllerRenderProps, FieldError } from 'react-hook-form';
 import { DatePicker } from '@blueprintjs/datetime';
 import { capitalizeString, formatDateToResultString } from '../../../../utils/stringUtils';
 import SlideToogleContent from '../SlideToogleContent';
@@ -8,7 +8,7 @@ interface IDatePickerInputProps {
   name: string,
   control: any,
   onChange?: (val: Date) => void,
-  error?: { type: string }
+  error?: FieldError | null
   label?: string
   half?: boolean
   minDate?: Date | undefined

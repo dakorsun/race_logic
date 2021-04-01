@@ -7,6 +7,7 @@ import SubmitButton from '../Fields/SubmitButton';
 // eslint-disable-next-line import/no-cycle
 import { useLoginMutation } from '../../../apollo/mutations/user';
 import { useAuthToken, userRoleVar } from '../../Hooks/UseAuthToken';
+// eslint-disable-next-line import/no-cycle
 import { AuthUserContext } from '../../Middlewares/AuthGate';
 
 interface FormData {

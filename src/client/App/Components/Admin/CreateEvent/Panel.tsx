@@ -1,4 +1,5 @@
 import React, {
+  useEffect,
   // useEffect,
   useRef, useState,
 } from 'react';
@@ -6,8 +7,8 @@ import { useForm } from 'react-hook-form';
 import moment from 'moment-timezone';
 import TextInput from '../../Fields/TextInput';
 import SubmitButton from '../../Fields/SubmitButton';
-// import { useCreateEventMutation } from '../../../../apollo/mutations/event';
 import DatePickerInput from '../../Fields/DatePicker';
+import { useCreateEventMutation } from '../../../../apollo/mutations/event';
 
 interface FormData {
   name: string
@@ -20,9 +21,9 @@ interface IPanelProps {
 }
 
 function Panel({}: IPanelProps): JSX.Element {
-  // const [createEventMutation, {
-  //   data, error, called, loading,
-  // }] = useCreateEventMutation();
+  const [createEventMutation, {
+    data: createEventMutationData, error: createEventMutationError, called, loading,
+  }] = useCreateEventMutation();
 
   const {
     register,
@@ -32,7 +33,7 @@ function Panel({}: IPanelProps): JSX.Element {
     errors,
     // setValue,
     getValues,
-    // setError,
+    setError,
   } = useForm<FormData & { common: string }>();
   const formRef = useRef(null);
   const nameRef = register({ required: true });
@@ -63,13 +64,36 @@ function Panel({}: IPanelProps): JSX.Element {
   const clearAllErrors = () => {
     clearErrors();
   };
+
+  const onSubmit = async (data: FormData) => {
+    console.log('form data: ', data);
+    if (!data.dateFrom) {
+      setError('dateFrom', { type: 'required' });
+    } else if (!data.dateTo) {
+      setError('dateTo', { type: 'required' });
+    } else {
+      await createEventMutation({ variables: data });
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      if (called && !loading) {
+        // do data update
+      }
+    })();
+  }, [createEventMutationData]);
+
+  useEffect(() => {
+    if (createEventMutationError) {
+      setError('common', { message: createEventMutationError.message });
+    }
+  }, [createEventMutationError]);
+
   return (
     <form
       className="create-form"
-      // onSubmit={handleSubmit(onSubmit)}
-      onSubmit={handleSubmit(() => {
-        console.log('submit');
-      })}
+      onSubmit={handleSubmit(onSubmit)}
       onChange={() => {
         clearAllErrors();
       }}
@@ -88,6 +112,7 @@ function Panel({}: IPanelProps): JSX.Element {
           control={control}
           onChange={onDateFromChange}
           initialValue={new Date()}
+          error={errors.dateFrom}
           name="dateFrom"
           label="Starting date"
           half
@@ -96,6 +121,7 @@ function Panel({}: IPanelProps): JSX.Element {
           control={control}
           minDate={dateToMinDate}
           initialValue={dateToInitialValue}
+          error={errors.dateTo}
           name="dateTo"
           label="Ending date"
           half
