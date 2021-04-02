@@ -16,7 +16,7 @@
 
   &:not(:last-child)
     margin-bottom: $margin-m
-    border-bottom: $border_width-layout-elements solid $font-color-dark
+    border-bottom: $border_width-layout-elements solid $color-orange
 
   & .block
     display: flex
@@ -35,3 +35,23 @@
       justify-content: flex-end
 
 
+@mixin list($element-width)
+
+  & .container
+    width: 100%
+    display: flex
+    flex-wrap: inherit
+    flex-direction: row
+    justify-content: start
+    align-items: start
+
+    & .list-element
+      @include list-element($element-width)
+
+
+@mixin list-element($width)
+  width: $width - $margin-m
+  margin-right: $margin-m
+  padding: $padding-m
+  &:not(:last-of-type)
+    margin-bottom: $margin-m

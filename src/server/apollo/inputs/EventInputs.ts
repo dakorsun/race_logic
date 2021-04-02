@@ -2,6 +2,7 @@ import { Field, InputType } from 'type-graphql';
 import { IsDate } from 'class-validator';
 import { DateRangeSearchCriteriaScalarType } from '../../../config/constants';
 import { DateRangeSearchCriteria } from '../../../config/types';
+import { PaggingQueryParameters } from './SearchInputs';
 
 @InputType()
 export class CreateEventInput {
@@ -27,7 +28,7 @@ export class UpdateEventInput {
   dateTo: Date;
 }
 @InputType()
-export class FindEventsInput {
+export class FindEventsInput extends PaggingQueryParameters {
   @Field(() => String, { nullable: true })
   name: string;
   @Field(() => DateRangeSearchCriteriaScalarType, { nullable: true })

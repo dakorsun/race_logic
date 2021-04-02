@@ -5,3 +5,38 @@ section.admin.events
 
   .create-form
     @include form($background-grey)
+
+  .events-list
+    & > div:not(:last-of-type)
+      margin-bottom: $margin-m
+    &:last-child
+      margin-bottom: 0 !important
+    & .heading
+      font-size: $font-size-heading-main
+
+    @include list(400px)
+
+    & .list-element.event
+      display: flex
+      flex-direction: column
+      justify-content: space-between
+      & > div:not(:last-of-type)
+        margin-bottom: $margin-s
+      & .name
+        font-weight: bold
+
+        margin-bottom: $margin-l !important
+
+      & .date
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+
+        & span:not(:last-of-type)
+          margin-bottom: $margin-s
+
+        & span:nth-of-type(2)
+          margin-left: $margin-m
+
+      @include block-filled
+
