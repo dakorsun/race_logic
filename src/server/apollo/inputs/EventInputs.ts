@@ -1,7 +1,7 @@
 import { Field, InputType } from 'type-graphql';
 import { IsDate } from 'class-validator';
 import { DateRangeSearchCriteriaScalarType } from '../../../config/constants';
-import { DateRangeSearchCriteria } from '../../../config/types';
+import { DateRangeSearchCriteria, EventTypes } from '../../../config/types';
 import { PaggingQueryParameters } from './SearchInputs';
 
 @InputType()
@@ -14,6 +14,8 @@ export class CreateEventInput {
   @Field(() => Date!)
   @IsDate()
   dateTo: Date;
+  @Field(() => String!)
+  type: EventTypes;
 }
 
 @InputType()

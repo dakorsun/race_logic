@@ -27,9 +27,9 @@ export interface AuthUser {
 }
 
 @Entity()
-@TableInheritance({ column: { type: 'varchar', name: 'type' } })
+@TableInheritance({ column: { name: 'role', enum: UserRoles } })
 @ObjectType()
-export default class User extends DefaultEntity {
+export default abstract class User extends DefaultEntity {
   @Field(() => String)
   @Column({ type: 'varchar' })
   firstName: string;
@@ -44,7 +44,7 @@ export default class User extends DefaultEntity {
   password: string;
   @Field(() => String)
   @Column({ type: 'enum', enum: UserRoles, default: usedUserRoles.ROLE_USER })
-  role: string;
+  abstract role: UserRoles;
   toJSON(): DefaultUser {
     return {
       id: this.id,

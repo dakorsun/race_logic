@@ -1,11 +1,12 @@
 /* eslint-disable import/no-cycle */
 import {
   Column,
-  Entity, OneToMany,
+  Entity, JoinColumn, OneToMany, OneToOne,
 } from 'typeorm';
 import { Field, ObjectType } from 'type-graphql';
 import { DefaultEntity } from './map';
 import RacerAtEvent from './RacerAtEvent';
+import EventConfig from './EventConfig/index';
 
 @Entity()
 @ObjectType()
@@ -24,5 +25,10 @@ export default class Event extends DefaultEntity {
   @OneToMany(() => RacerAtEvent, (racerAtEvent) => racerAtEvent.event, {
     cascade: true,
   })
-  public racerAtEvent: RacerAtEvent[];
+  racerAtEvent: RacerAtEvent[];
+  //
+  // Config to Event Relation
+  @OneToOne(() => EventConfig, (eventConfig) => eventConfig.event)
+  @JoinColumn()
+  config: EventConfig;
 }

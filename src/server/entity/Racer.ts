@@ -1,16 +1,19 @@
 /* eslint-disable import/no-cycle */
 
 import {
-  Entity, OneToMany,
+  ChildEntity,
+  OneToMany,
 } from 'typeorm';
 import { ObjectType } from 'type-graphql';
 import RacerAtEvent from './RacerAtEvent';
 import RacerAtRace from './RacerAtRace';
 import User from './User';
+import { UserRoles } from '../../config/types';
 
-@Entity()
+@ChildEntity()
 @ObjectType()
 export default class Racer extends User {
+  role: UserRoles.ROLE_RACER;
   //
   // Racer to Event Relation
   @OneToMany(() => RacerAtEvent, (racerAtEvent) => racerAtEvent.racer, {
