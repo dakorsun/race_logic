@@ -1,6 +1,5 @@
 import React, {
   useEffect,
-  // useEffect,
   useRef, useState,
 } from 'react';
 import { useForm } from 'react-hook-form';
@@ -9,18 +8,22 @@ import TextInput from '../../Fields/TextInput';
 import SubmitButton from '../../Fields/SubmitButton';
 import DatePickerInput from '../../Fields/DatePicker';
 import { useCreateEventMutation } from '../../../../apollo/mutations/event';
+import { EventTypes, EventTypesLabels } from '../../../../../config/types';
+import SelectInput from '../../Fields/SelectInput';
 
 interface FormData {
   name: string
   dateFrom: Date
   dateTo: Date | null
+  type: EventTypes | null
 }
 
 interface IPanelProps {
 
 }
 
-function Panel({}: IPanelProps): JSX.Element {
+// eslint-disable-next-line no-empty-pattern
+function Panel({ }: IPanelProps): JSX.Element {
   const [createEventMutation, {
     data: createEventMutationData, error: createEventMutationError, called, loading,
   }] = useCreateEventMutation();
@@ -31,15 +34,29 @@ function Panel({}: IPanelProps): JSX.Element {
     handleSubmit,
     clearErrors,
     errors,
-    // setValue,
+    setValue,
     getValues,
     setError,
-  } = useForm<FormData & { common: string }>();
+  } = useForm<FormData & { common: string }>({
+    defaultValues: { type: null },
+  });
   const formRef = useRef(null);
   const nameRef = register({ required: true });
+  register({ name: 'type', required: true });
 
   const [dateToMinDate, setDateToMinDate] = useState(undefined);
   const [dateToInitialValue, setDateToInitialValue] = useState(undefined);
+
+  const typeOptions: { value: string | null, label: string }[] = [{
+    value: null,
+    label: 'None',
+  }];
+  Object.keys(EventTypes).forEach((key) => {
+    typeOptions.push({
+      value: key,
+      label: EventTypesLabels[key],
+    });
+  });
 
   const onDateFromChange = (value: Date): void => {
     const dateFrom = moment(value || null);
@@ -71,6 +88,8 @@ function Panel({}: IPanelProps): JSX.Element {
       setError('dateFrom', { type: 'required' });
     } else if (!data.dateTo) {
       setError('dateTo', { type: 'required' });
+    } else if (!data.type) {
+      setError('type', { type: 'required' });
     } else {
       await createEventMutation({ variables: data });
     }
@@ -104,35 +123,45 @@ function Panel({}: IPanelProps): JSX.Element {
           Create event
         </h1>
       </div>
-      <div className="form-block">
+      <div className="form-block row">
         <TextInput register={nameRef} name="name" half error={errors.name} />
+        <SelectInput
+          name="type"
+          label="Event type"
+          setValue={(val) => {
+            setValue('type', val);
+          }}
+          options={typeOptions}
+          error={errors.type}
+          half
+        />
       </div>
       <div className="form-block row">
         <DatePickerInput
+          name="dateFrom"
+          label="Starting date"
           control={control}
           onChange={onDateFromChange}
           initialValue={new Date()}
           error={errors.dateFrom}
-          name="dateFrom"
-          label="Starting date"
           half
         />
         <DatePickerInput
+          name="dateTo"
+          label="Ending date"
           control={control}
           minDate={dateToMinDate}
           initialValue={dateToInitialValue}
           error={errors.dateTo}
-          name="dateTo"
-          label="Ending date"
           half
         />
       </div>
+      <div className="form-block row" />
       <div className="form-block">
         <SubmitButton
           label="Create"
           error={errors.common && errors.common.message}
           disabled={
-            // loading ||
             !!Object.keys(errors).length
           }
           submit={() => {

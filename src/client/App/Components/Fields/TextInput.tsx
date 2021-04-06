@@ -27,7 +27,7 @@ const TextInput = ({
     return resultMessage;
   }, [error]);
   return (
-    <div className={`input-wrapper${half ? ' half' : ''}`}>
+    <div className={`input-wrapper text ${half ? ' half' : ''}`}>
       <label htmlFor={name} className={`input ${type}`}>
         <input
           className={`input ${type} field`}

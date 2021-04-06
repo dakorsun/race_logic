@@ -105,3 +105,57 @@
 
   & .error
     @include error-block
+@mixin internal-select($bg-color)
+  & .container
+    border: $border_width-input solid $color-orange
+    border-radius: $border-radius-s
+    overflow: hidden
+    &:hover
+      & .label
+        color: $font-color-orange !important
+    & .label
+      position: absolute
+      left: $border_width-input
+      top: $border_width-input
+      margin: $padding-s * 1.5 $padding-s
+      padding: 0 $padding-s
+      transform: translate(0, 0)
+      transform-origin: 0 0
+      transition: transform 120ms ease-in
+      font-weight: bold
+      color: $font-color-grey-dark
+      cursor: pointer
+    &.active, &.valued
+      & .label
+        transform: translate(0, - ($padding-s + ($line_height-main / 1.5) + $border_width-input)) scale(.9)
+        color: $font-color-orange !important
+        background: $bg-color
+    & div.value
+      width: 100%
+      padding: $padding-s * 1.5 $padding-s
+      cursor: pointer
+      & span
+        color: $color-orange
+        font-size: $font-size-main
+        line-height: $line_height-main
+        font-weight: bold
+      & div
+        height: $line_height-main
+    & .options
+      & .option
+        background: $background-orange
+        padding: $padding-xs
+        &:hover
+          cursor: pointer
+          background: $background-orange-dark
+        & span
+          font-size: $font-size-main
+          line-height: $line-height-main
+        &:first-of-type
+          padding-top: $padding-s
+        &:last-of-type
+          padding-bottom: $padding-s
+
+
+  & .error
+    @include error-block

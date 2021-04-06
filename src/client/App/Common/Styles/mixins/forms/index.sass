@@ -27,8 +27,12 @@
       &:not(:last-child)
         margin-bottom: $margin-m
 
-      @include input-textable($bg-color)
-      @include internal-date-picker($bg-color)
+      &.text, &.email, &.password
+        @include input-textable($bg-color)
+      &.date
+        @include internal-date-picker($bg-color)
+      &.select
+        @include internal-select($bg-color)
 
     & .button-wrapper
       &.submit

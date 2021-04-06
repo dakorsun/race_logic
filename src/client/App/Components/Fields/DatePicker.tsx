@@ -89,7 +89,7 @@ const DatePickerInput = ({
   };
 
   return (
-    <div className={`input-wrapper${half ? ' half' : ''}`}>
+    <div className={`input-wrapper date${half ? ' half' : ''}`}>
       <Controller
         control={control}
         name={name}

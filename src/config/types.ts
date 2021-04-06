@@ -34,6 +34,17 @@ export enum EventTypes {
   DUEL_SPRINT = 'DUEL_SPRINT',
 }
 
+export const EventTypesLabels = {
+  GROUP_CIRCLE: 'Group Circle',
+  DUEL_CIRCLE: 'Duel Circle',
+  SOLO_CIRCLE: 'Solo Circle',
+  SOLO_SPRINT: 'Solo Sprint',
+  GROUP_SPRINT: 'Group Sprint',
+  DUEL_SPRINT: 'Duel Sprint',
+} as {
+  [key: string]: string
+};
+
 export enum EventConfigStagesTypes {
   SINGLE = 'SINGLE',
   ONE__SECOND = '1/2',
