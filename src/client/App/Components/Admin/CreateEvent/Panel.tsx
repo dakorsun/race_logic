@@ -4,12 +4,12 @@ import React, {
 } from 'react';
 import { useForm } from 'react-hook-form';
 import moment from 'moment-timezone';
-import TextInput from '../../Fields/TextInput';
+import TextField from '../../Fields/TextField';
 import SubmitButton from '../../Fields/SubmitButton';
-import DatePickerInput from '../../Fields/DatePicker';
+import DatePickerField from '../../Fields/DateField';
 import { useCreateEventMutation } from '../../../../apollo/mutations/event';
 import { EventTypes, EventTypesLabels } from '../../../../../config/types';
-import SelectInput from '../../Fields/SelectInput';
+import SelectField from '../../Fields/SelectField';
 
 interface FormData {
   name: string
@@ -38,7 +38,9 @@ function Panel({ }: IPanelProps): JSX.Element {
     getValues,
     setError,
   } = useForm<FormData & { common: string }>({
-    defaultValues: { type: null },
+    defaultValues: {
+      type: null,
+    },
   });
   const formRef = useRef(null);
   const nameRef = register({ required: true });
@@ -124,8 +126,13 @@ function Panel({ }: IPanelProps): JSX.Element {
         </h1>
       </div>
       <div className="form-block row">
-        <TextInput register={nameRef} name="name" half error={errors.name} />
-        <SelectInput
+        <TextField
+          register={nameRef}
+          name="name"
+          half
+          error={errors.name}
+        />
+        <SelectField
           name="type"
           label="Event type"
           setValue={(val) => {
@@ -137,7 +144,7 @@ function Panel({ }: IPanelProps): JSX.Element {
         />
       </div>
       <div className="form-block row">
-        <DatePickerInput
+        <DatePickerField
           name="dateFrom"
           label="Starting date"
           control={control}
@@ -146,7 +153,7 @@ function Panel({ }: IPanelProps): JSX.Element {
           error={errors.dateFrom}
           half
         />
-        <DatePickerInput
+        <DatePickerField
           name="dateTo"
           label="Ending date"
           control={control}

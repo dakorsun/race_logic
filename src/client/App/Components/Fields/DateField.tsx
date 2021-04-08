@@ -4,7 +4,7 @@ import { DatePicker } from '@blueprintjs/datetime';
 import { capitalizeString, formatDateToResultString } from '../../../../utils/stringUtils';
 import SlideToogleContent from '../SlideToogleContent';
 
-interface IDatePickerInputProps {
+interface IDatePickerFieldProps {
   name: string,
   control: any,
   onChange?: (val: Date) => void,
@@ -14,9 +14,10 @@ interface IDatePickerInputProps {
   minDate?: Date | undefined
   maxDate?: Date | undefined
   initialValue?: Date | undefined
+  notEditable?: boolean
 }
 
-const DatePickerInput = ({
+const DatePickerField = ({
   name,
   label,
   control,
@@ -26,7 +27,8 @@ const DatePickerInput = ({
   minDate,
   maxDate,
   initialValue,
-}: IDatePickerInputProps): JSX.Element => {
+  notEditable,
+}: IDatePickerFieldProps): JSX.Element => {
   const inputLabel: string = label || capitalizeString(name);
   const errorFormatter = useMemo(() => {
     let resultMessage = 'Unknown validation fail';
@@ -52,25 +54,40 @@ const DatePickerInput = ({
     return (
       <>
         <div
-          className={`container ${name}${isOpened ? ' active' : ''}${value ? ' valued' : ''}`}
+          className={`container 
+          ${name}
+          ${isOpened ? ' active' : ''}
+          ${notEditable ? ' static' : ' editable'}
+          ${value ? ' valued' : ''}`}
         >
           <span className="label">
             {inputLabel}
           </span>
           <div
             className={`value ${name}`}
-            onClick={() => {
-              setIsOpened(!isOpened);
-            }}
+            onClick={
+              notEditable
+                ? null
+                : () => {
+                  setIsOpened(!isOpened);
+                }
+            }
           >
-            {value
-
-              ? (
-                <span>
-                  {formatDateToResultString(value)}
-                </span>
-              )
-              : <div />}
+            {
+              value
+                ? (
+                  <span>
+                    {formatDateToResultString(value)}
+                  </span>
+                )
+                : notEditable ? (
+                  <span className="empty">
+                    Not set
+                  </span>
+                ) : (
+                  <div />
+                )
+            }
           </div>
           <SlideToogleContent isVisible={isOpened}>
             <DatePicker
@@ -100,7 +117,7 @@ const DatePickerInput = ({
     </div>
   );
 };
-DatePickerInput.defaultProps = {
+DatePickerField.defaultProps = {
   label: null,
   error: null,
   half: false,
@@ -109,6 +126,7 @@ DatePickerInput.defaultProps = {
   minDate: undefined,
   maxDate: undefined,
   initialValue: undefined,
+  notEditable: false,
 };
 
-export default DatePickerInput;
+export default DatePickerField;

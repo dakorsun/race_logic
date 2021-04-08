@@ -13,6 +13,7 @@
         "node": true
     },
     "rules": {
+        "jsx-a11y/click-events-have-key-events": [0],
         "indent": ["error", 2],
         "max-len": "off",
 //        "lines-between-class-members": ["error", "always", {"exceptAfterSingleLine": true}],
@@ -20,9 +21,9 @@
         "import/newline-after-import": [0],
         "import/prefer-default-export": [0],
         "no-bitwise": [0],
+        "no-nested-ternary": [0],
         "no-trailing-spaces": ["error", {"skipBlankLines": true}],
         "no-restricted-globals": [0],
         "max-classes-per-file": [0],
-
     }
 }

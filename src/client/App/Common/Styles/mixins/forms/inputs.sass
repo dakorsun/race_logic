@@ -3,10 +3,9 @@
   border-inline: 0
   border-radius: $border_radius-s
 
-
 @mixin input-textable($bg-color)
   & .input
-    // autocomplete fix try
+    // todo implement autocomplete custom styles
     //input: -webkit-autofill
     //  -webkit-box-shadow: inset 0 0 0 50px $background-grey-light !important
 
@@ -24,21 +23,12 @@
     & .error
       @include error-block
 
-
 @mixin input-styled-label_to_border_on_focus($bg-color)
   &.label
-    position: absolute
-    left: $border_width-input
-    top: $border_width-input
-    margin: $padding-s * 1.5 $padding-s
-    padding: 0 $padding-s
-    white-space: nowrap
-    transform: translate(0, 0)
-    transform-origin: 0 0
-    transition: transform 120ms ease-in
     font-weight: bold
+    background: $bg-color
     color: $font-color-grey-dark
-
+    @include field-label-to-border-position
 
   &.field
     @include input-default
@@ -48,44 +38,44 @@
     height: 100%
     padding: $padding-s * 1.5 $padding-s
     color: $font-color-orange
-    border: $border_width-input solid $font-color-orange
+    &.static
+      background: $background-grey
+      border: $border-width-input solid $color-dark
 
-    &:focus,
-    &:not(:placeholder-shown)
-      & + .input.label
-        transform: translate(0, - ($padding-s + ($line_height-main / 1.5) + $border_width-input)) scale(.9)
-        color: $font-color-orange !important
-        background: $bg-color
 
-    &:hover
-      & + .input.label
-        color: $font-color-orange
+  &.editable
+    & .label
+      color: $font-color-grey-dark
+    & .field
+      border: $border_width-input solid $font-color-orange
+      &:focus,
+      &.input:not(:placeholder-shown)
+        & + .input.label
+          @include field_editable-label-to-border-transition
+          color: $font-color-orange
+          background: $bg-color
+      &:hover
+        & + .input.label
+          color: $font-color-orange
+
+  &.static
+    & .label
+      background: transparent
+      color: $font-color-dark
+      @include field_static-label-to-border-transition
+    & .field
+      border: $border_width-input solid $font-color-dark
 
 @mixin internal-date-picker($bg-color)
   & .container
     border: $border_width-input solid $color-orange
     border-radius: $border-radius-s
     overflow: hidden
-    &:hover
-      & .label
-        color: $font-color-orange !important
     & .label
-      position: absolute
-      left: $border_width-input
-      top: $border_width-input
-      margin: $padding-s * 1.5 $padding-s
-      padding: 0 $padding-s
-      transform: translate(0, 0)
-      transform-origin: 0 0
-      transition: transform 120ms ease-in
       font-weight: bold
       color: $font-color-grey-dark
       cursor: pointer
-    &.active, &.valued
-      & .label
-        transform: translate(0, - ($padding-s + ($line_height-main / 1.5) + $border_width-input)) scale(.9)
-        color: $font-color-orange !important
-        background: $bg-color
+      @include field-label-to-border-position
     & div.value
       width: 100%
       padding: $padding-s * 1.5 $padding-s
@@ -98,7 +88,36 @@
       & div
         height: $line_height-main
 
-
+    &.editable
+      &:hover
+        & .label
+          color: $font-color-orange !important
+      &.active, &.valued
+        & .label
+          @include field_editable-label-to-border-transition
+          color: $font-color-orange
+          background: $bg-color
+      & div.value
+        width: 100%
+        padding: $padding-s * 1.5 $padding-s
+        cursor: pointer
+        & span
+          color: $color-orange
+          font-size: $font-size-main
+          line-height: $line_height-main
+          font-weight: bold
+        & div
+          height: $line_height-main
+    &.static
+      border: $border_width-input solid $color-dark
+      & div.value
+        background: $background-grey
+        & span.empty
+          color: $font-color-grey-dark
+      & .label
+        @include field_static-label-to-border-transition
+        color: $font-color-dark
+        background: transparent
     & .internal_date_picker
       background: $background-orange
       border-radius: 0
@@ -110,30 +129,18 @@
     border: $border_width-input solid $color-orange
     border-radius: $border-radius-s
     overflow: hidden
-    &:hover
-      & .label
-        color: $font-color-orange !important
     & .label
-      position: absolute
-      left: $border_width-input
-      top: $border_width-input
-      margin: $padding-s * 1.5 $padding-s
-      padding: 0 $padding-s
-      transform: translate(0, 0)
-      transform-origin: 0 0
-      transition: transform 120ms ease-in
       font-weight: bold
       color: $font-color-grey-dark
       cursor: pointer
-    &.active, &.valued
-      & .label
-        transform: translate(0, - ($padding-s + ($line_height-main / 1.5) + $border_width-input)) scale(.9)
-        color: $font-color-orange !important
-        background: $bg-color
+      line-height: $line-height-main
+      @include field-label-to-border-position
+
     & div.value
       width: 100%
       padding: $padding-s * 1.5 $padding-s
       cursor: pointer
+      background: $bg-color
       & span
         color: $color-orange
         font-size: $font-size-main
@@ -155,7 +162,42 @@
           padding-top: $padding-s
         &:last-of-type
           padding-bottom: $padding-s
+    &.editable
+      &.active, &.valued
+        & .label
+          @include field_editable-label-to-border-transition
+          color: $font-color-orange
+          background: $bg-color
+      &:hover
+        & .label
+          color: $font-color-orange
+
+    &.static
+      border: $border_width-input solid $color-dark
+      & div.value
+        background: $background-grey
+        & span.empty
+          color: $font-color-grey-dark
+      & .label
+        @include field_static-label-to-border-transition
+        color: $font-color-dark
+        background: transparent
 
 
   & .error
     @include error-block
+
+@mixin field-label-to-border-position
+  position: absolute
+  left: $border_width-input
+  top: $border_width-input
+  margin: $padding-s * 1.5 $padding-s
+  padding: 0 $padding-s
+  transform: translate(0, 0)
+  transform-origin: 0 0
+  transition: transform 120ms ease-in
+
+@mixin field_editable-label-to-border-transition
+  transform: translate(0, - ($padding-s + ($line_height-main / 1.5) + $border_width-input)) scale(.9) !important
+@mixin field_static-label-to-border-transition
+  transform: translate(-$padding-s, - ($padding-s + $line_height-main + 2 + $border_width-input)) scale(.9) !important

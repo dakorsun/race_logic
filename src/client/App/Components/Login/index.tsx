@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { EmailRegEx } from '../../../../config/constants';
-import TextInput from '../Fields/TextInput';
+import TextField from '../Fields/TextField';
 import SubmitButton from '../Fields/SubmitButton';
 // eslint-disable-next-line import/no-cycle
 import { useLoginMutation } from '../../../apollo/mutations/user';
@@ -73,13 +73,13 @@ const LoginComponent = (): JSX.Element => {
         <h1 className="form-element">Login</h1>
       </div>
       <div className="form-block">
-        <TextInput
+        <TextField
           type="email"
           name="email"
           register={emailRef}
           error={errors.email}
         />
-        <TextInput
+        <TextField
           type="password"
           name="password"
           register={passwordRef}

@@ -8,10 +8,12 @@ interface TextInputAttributes {
   error?: { type: string }
   label?: string
   half?: boolean
+  notEditable?: boolean
+  defaultValue?: string | null
 }
 
-const TextInput = ({
-  name, label, register, error, type, half,
+const TextField = ({
+  name, label, register, error, type, half, notEditable, defaultValue,
 }:TextInputAttributes): JSX.Element => {
   const inputLabel: string = label || capitalizeString(name);
   const errorFormatter = useMemo(() => {
@@ -28,26 +30,42 @@ const TextInput = ({
   }, [error]);
   return (
     <div className={`input-wrapper text ${half ? ' half' : ''}`}>
-      <label htmlFor={name} className={`input ${type}`}>
-        <input
-          className={`input ${type} field`}
-          placeholder=" "
-          type={type}
-          name={name}
-          ref={register}
-          autoComplete="off"
-        />
-        <span className={`input ${type} label`}>{inputLabel}</span>
+      <label
+        htmlFor={name}
+        className={`input 
+          ${type}
+          ${notEditable ? ' static' : ' editable'}
+        `}
+      >
+        {notEditable
+          ? (
+            <span className={`input ${type} field`}>
+              {defaultValue}
+            </span>
+          )
+          : (
+            <input
+              className={`input ${type} field`}
+              placeholder=" "
+              type={type}
+              name={name}
+              ref={register}
+              autoComplete="off"
+            />
+          )}
+        <span className={`input${notEditable ? ' static' : ''} ${type} label`}>{inputLabel}</span>
         {error && <span className={`input ${type} error`}>{errorFormatter}</span>}
       </label>
     </div>
   ) as JSX.Element;
 };
 
-TextInput.defaultProps = {
+TextField.defaultProps = {
   label: null,
   error: null,
   type: 'text',
   half: false,
+  notEditable: false,
+  defaultValue: null,
 };
-export default TextInput;
+export default TextField;
