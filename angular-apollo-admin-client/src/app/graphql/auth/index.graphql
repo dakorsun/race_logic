@@ -1,0 +1,21 @@
+mutation login($credentials: LoginCredentials!) {
+  login(credentials: $credentials){
+    id
+    firstName
+    lastName
+    email
+    role
+    token
+  }
+}
+
+query me {
+  me {
+    id
+    firstName
+    lastName
+    email
+    role
+    token
+  }
+}

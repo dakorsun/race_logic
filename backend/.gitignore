@@ -102,3 +102,12 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Server build ouput
+lib/
+
+# node-localstorage stroe
+./scratch
+
+# Universal gql schema sharing
+schema.gql
