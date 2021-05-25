@@ -1,0 +1,46 @@
+<mat-card
+  fxFlex="1 1 33%"
+  fxFlex.lt-md="1 1 60%"
+  fxFlex.lt-sm="1 1 95%"
+
+  fxLayout="column"
+  fxLayoutAlign="stretch stretch"
+
+>
+  <div
+    fxFlex="1 1 100%"
+
+    fxLayout="column"
+    fxLayoutAlign="space-between center"
+  >
+    <mat-card-title>Let's dive in</mat-card-title>
+    <mat-card-subtitle>Defined admin-list member authorization</mat-card-subtitle>
+  </div>
+
+  <mat-card-content>
+    <div
+      fxFlexFill
+
+      fxLayout="column"
+      fxLayoutAlign="start center"
+    >
+      <mat-form-field appearance="standard" color="primary">
+        <mat-label>Email</mat-label>
+        <input matInput type="text" placeholder="Enter email" [(ngModel)]="emailValue">
+      </mat-form-field>
+      <mat-form-field appearance="standard" color="primary">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="Enter password" [(ngModel)]="passwordValue">
+      </mat-form-field>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions
+    fxFlexAlign="center"
+
+    fxLayout="row"
+    fxLayoutAlign="center"
+  >
+    <button mat-button>Log in</button>
+  </mat-card-actions>
+</mat-card>

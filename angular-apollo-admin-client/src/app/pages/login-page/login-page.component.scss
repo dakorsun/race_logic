@@ -1,0 +1,12 @@
+.container {
+  padding-top: calc(var(--padding)/2);
+
+  &.lt-md {
+    padding-top: var(--padding_lt-md);
+
+  }
+  &.lt-sm {
+    padding-top: var(--padding_lt-sm);
+
+  }
+}
