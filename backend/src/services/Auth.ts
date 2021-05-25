@@ -5,8 +5,7 @@ import { LoginCredentials } from '../inputs/AuthInputs';
 // eslint-disable-next-line import/no-cycle
 import { UserTokenObject } from '../config/types';
 import serverConfig from '../config/serverConfig';
-import User from '../entity/User';
-import { AuthorizedUser } from '../resolvers/Auth.resolver';
+import User, { AuthorizedUser } from '../entity/User';
 
 class AuthService {
   comparePassword(passwordToCheck: string, originalPassword: string): Promise<boolean> {

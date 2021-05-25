@@ -31,11 +31,11 @@
       </div>
       <app-logout-button *ngIf="isUserLogged; else elseBlock"
                          (click)="onLogoutClick()"
-                          [username]="username"
+                          [username]="nickname || 'Unknown'"
       >
       </app-logout-button>
       <ng-template #elseBlock>
-        <app-login-button (click)="onLoginClick()"></app-login-button>
+        <app-login-button></app-login-button>
       </ng-template>
     </mat-toolbar>
     <ng-content></ng-content>

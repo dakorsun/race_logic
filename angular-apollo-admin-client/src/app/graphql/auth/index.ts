@@ -22,13 +22,14 @@ export type Scalars = {
 };
 
 export type AuthorizedUser = {
-  __typename?: 'AuthorizedUser';
-  email: Scalars['String'];
-  firstName: Scalars['String'];
   id: Scalars['ID'];
-  lastName: Scalars['String'];
-  role: Scalars['String'];
   token: Scalars['Authorization_token'];
+};
+
+export type CommonUser = {
+  id: Scalars['ID'];
+  nickname: Scalars['String'];
+  role: Scalars['String'];
 };
 
 export type CreateEventInput = {
@@ -46,7 +47,6 @@ export type CreateUserInput = {
 };
 
 export type Event = {
-  __typename?: 'Event';
   createdAt: Scalars['DateTime'];
   dateFrom: Scalars['DateTime'];
   dateTo: Scalars['DateTime'];
@@ -69,7 +69,6 @@ export type LoginCredentials = {
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
   createEvent: Event;
   createUser: User;
   deleteEvent: Scalars['Boolean'];
@@ -110,10 +109,9 @@ export type MutationUpdateUserArgs = {
 };
 
 export type Query = {
-  __typename?: 'Query';
   eventById: Event;
   events: Array<Event>;
-  me?: Maybe<AuthorizedUser>;
+  me?: Maybe<CommonUser>;
   userById: User;
 };
 
@@ -142,7 +140,6 @@ export type UpdateUserInput = {
 };
 
 export type User = {
-  __typename?: 'User';
   createdAt: Scalars['DateTime'];
   email: Scalars['String'];
   firstName: Scalars['String'];
@@ -157,36 +154,16 @@ export type LoginMutationVariables = Exact<{
   credentials: LoginCredentials;
 }>;
 
-export type LoginMutation = (
-  { __typename?: 'Mutation' }
-  & {
-  login: (
-    { __typename?: 'AuthorizedUser' }
-    & Pick<AuthorizedUser, 'id' | 'firstName' | 'lastName' | 'email' | 'role' | 'token'>
-    )
-}
-  );
+export type LoginMutation = { login: Pick<AuthorizedUser, 'id' | 'token'> };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type MeQuery = (
-  { __typename?: 'Query' }
-  & {
-  me?: Maybe<(
-    { __typename?: 'AuthorizedUser' }
-    & Pick<AuthorizedUser, 'id' | 'firstName' | 'lastName' | 'email' | 'role' | 'token'>
-    )>
-}
-  );
+export type MeQuery = { me?: Maybe<Pick<CommonUser, 'id' | 'role' | 'nickname'>> };
 
 export const LoginDocument = gql`
   mutation login($credentials: LoginCredentials!) {
     login(credentials: $credentials) {
       id
-      firstName
-      lastName
-      email
-      role
       token
     }
   }
@@ -207,11 +184,8 @@ export const MeDocument = gql`
   query me {
     me {
       id
-      firstName
-      lastName
-      email
       role
-      token
+      nickname
     }
   }
 `;

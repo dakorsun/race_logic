@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   providers: [FormControl],
@@ -8,15 +9,18 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./login-form.component.scss']
 })
 export class LoginFormComponent implements OnInit {
-  // emailValue = '';
-  emailControl = new FormControl('');
   emailValue = '';
-  passwordControl = new FormControl('');
   passwordValue = '';
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
+  onLoginClick() {
+    this.authService.doLogin({
+      email: this.emailValue,
+      password: this.passwordValue
+    });
+  }
 }

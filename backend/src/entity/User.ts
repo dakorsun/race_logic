@@ -3,27 +3,50 @@ import {
   Column,
   Entity, TableInheritance,
 } from 'typeorm';
-import { Field, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
 import { DefaultEntity } from './utils';
-import { usedUserRoles } from '../config/constants';
-import { UserRoles } from '../config/types';
+import { TokenStringScalarType, usedUserRoles } from '../config/constants';
+import { TokenString, UserRoles } from '../config/types';
 
-export interface DefaultUser {
-  id: number
-  firstName: string
-  lastName: string
-  email: string
-  role: string
-  createdAt: Date
-  updatedAt: Date
+@ObjectType()
+export class AuthorizedUser {
+  @Field(() => ID)
+  id: number;
+  @Field(() => TokenStringScalarType)
+  token: TokenString;
+}
+
+@ObjectType()
+export class CommonUser {
+  @Field(() => ID)
+  id: number;
+  @Field(() => String)
+  nickname: string;
+  @Field(() => String)
+  role: UserRoles;
+}
+
+@ObjectType()
+export class DefaultUser {
+  @Field(() => ID)
+  id: number;
+  @Field(() => String)
+  firstName: string;
+  @Field(() => String)
+  lastName: string;
+  @Field(() => String)
+  email: string;
+  @Field(() => String)
+  role: UserRoles;
+  @Field(() => Date)
+  createdAt: Date;
+  @Field(() => Date)
+  updatedAt: Date;
 }
 
 export interface AuthUser {
   id: number
-  firstName: string
-  lastName: string
-  email: string
-  role: string
+  token: string
 }
 
 @Entity()
@@ -45,6 +68,9 @@ export default abstract class User extends DefaultEntity {
   @Field(() => String)
   @Column({ type: 'enum', enum: UserRoles, default: usedUserRoles.ROLE_USER })
   abstract role: UserRoles;
+  get nickname() : string {
+    return `${this.firstName} ${this.lastName}`;
+  }
   toJSON(): DefaultUser {
     return {
       id: this.id,
@@ -57,13 +83,16 @@ export default abstract class User extends DefaultEntity {
 
     };
   }
-  toAuthJSON(): AuthUser {
+  toCommonJSON(): CommonUser {
     return {
       id: this.id,
-      firstName: this.firstName,
-      lastName: this.lastName,
-      email: this.email,
+      nickname: this.nickname,
       role: this.role,
+    };
+  }
+  toAuthJSON(): Pick<AuthUser, 'id'> {
+    return {
+      id: this.id,
     };
   }
 }

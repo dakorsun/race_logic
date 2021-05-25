@@ -9,7 +9,7 @@ export class LogoutButtonComponent implements OnInit {
 
   constructor() { }
 
-  @Input() username: string | null = 'Unknown';
+  @Input() username: string | undefined;
 
   ngOnInit(): void {
 

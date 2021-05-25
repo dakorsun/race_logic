@@ -4,7 +4,7 @@ import {
 } from 'typeorm';
 import { CreateUserInput, UpdateUserInput } from '../inputs/UserInputs';
 // eslint-disable-next-line import/no-cycle
-import User, { AuthUser, DefaultUser } from '../entity/User';
+import User, { CommonUser, DefaultUser } from '../entity/User';
 // eslint-disable-next-line import/no-cycle
 import AuthService from './Auth';
 import { UserRoles } from '../config/types';
@@ -42,12 +42,12 @@ class UserServiceClass {
       throw e;
     }
   }
-  async getAuthorizedUserById(id: string): Promise<AuthUser | null> {
+  async getAuthorizedUserById(id: string): Promise<CommonUser | null> {
     try {
       const user = await User.findOne(id);
       if (user) {
         return {
-          ...user.toAuthJSON(),
+          ...user.toCommonJSON(),
         };
       }
       return null;

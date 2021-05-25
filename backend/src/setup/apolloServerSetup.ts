@@ -4,11 +4,12 @@ import { ApolloServer } from 'apollo-server';
 import path from 'path';
 import { ApolloServerExpressConfig } from 'apollo-server-express';
 // eslint-disable-next-line import/no-cycle
-import AuthResolver, { AuthorizedUser } from '../resolvers/Auth.resolver';
+import AuthResolver from '../resolvers/Auth.resolver';
 import UserService from '../services/User';
 import AuthService from '../services/Auth';
 import EventResolver from '../resolvers/Event.resolver';
 import UserResolver from '../resolvers/User.resolver';
+import { AuthorizedUser } from '../entity/User';
 
 export interface Context {
   req: Request

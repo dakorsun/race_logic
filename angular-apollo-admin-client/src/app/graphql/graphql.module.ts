@@ -4,6 +4,7 @@ import { ApolloLink, InMemoryCache} from '@apollo/client/core';
 import {HttpLink} from 'apollo-angular/http';
 import {HttpClientModule} from '@angular/common/http';
 import {setContext} from '@apollo/client/link/context';
+import {AUTH_TOKEN_NAME} from '../constants';
 
 const uri = 'http://localhost:3050';
 export function createApollo(httpLink: HttpLink) {
@@ -14,14 +15,14 @@ export function createApollo(httpLink: HttpLink) {
   }));
 
   const auth = setContext((operation, context) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem(AUTH_TOKEN_NAME);
 
     if (token === null) {
       return {};
     } else {
       return {
         headers: {
-          Authorization: `JWT ${token}`
+          Authorization: token
         }
       };
     }
