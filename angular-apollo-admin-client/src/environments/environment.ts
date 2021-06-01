@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  routing: {
+    UNAUTHORIZED_REDIRECT_URL: '/login',
+    AUTHORIZED_REDIRECT_URL: '/',
+  }
 };
 
 /*

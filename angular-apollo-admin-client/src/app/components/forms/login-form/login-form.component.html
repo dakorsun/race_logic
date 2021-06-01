@@ -17,23 +17,30 @@
     <mat-card-subtitle>Defined admin-list member authorization</mat-card-subtitle>
   </div>
 
-  <mat-card-content>
-    <div
-      fxFlexFill
+  <from [formGroup]="loginForm">
+    <mat-card-content>
+      <div
+        fxFlexFill
 
-      fxLayout="column"
-      fxLayoutAlign="start center"
-    >
-      <mat-form-field appearance="standard" color="primary">
-        <mat-label>Email</mat-label>
-        <input matInput type="text" placeholder="Enter email" [(ngModel)]="emailValue">
-      </mat-form-field>
-      <mat-form-field appearance="standard" color="primary">
-        <mat-label>Password</mat-label>
-        <input matInput type="password" placeholder="Enter password" [(ngModel)]="passwordValue">
-      </mat-form-field>
-    </div>
-  </mat-card-content>
+        fxLayout="column"
+        fxLayoutAlign="start center"
+      >
+        <mat-form-field appearance="standard" color="primary">
+          <mat-label>Email</mat-label>
+          <input matInput type="text" id="email" name="email" formControlName="email" placeholder="Enter email">
+          <mat-error *ngIf="email?.touched && (email?.dirty || email?.invalid)">{{getEmailErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="standard" color="primary">
+          <mat-label>Password</mat-label>
+          <!--        <input matInput type="password" placeholder="Enter password" [(ngModel)]="passwordValue">-->
+          <input matInput type="password" id="password" name="password" formControlName="password"
+                 placeholder="Enter password">
+          <mat-error *ngIf="password?.touched && (password?.dirty || password?.invalid)">{{getPasswordErrorMessage()}}</mat-error>
+        </mat-form-field>
+        <span class="mat-error" *ngIf="!!commonError">{{commonError}}</span>
+      </div>
+    </mat-card-content>
+  </from>
 
   <mat-card-actions
     fxFlexAlign="center"
@@ -41,6 +48,6 @@
     fxLayout="row"
     fxLayoutAlign="center"
   >
-    <button mat-button (click)="onLoginClick()">Log in</button>
+    <button mat-button (click)="onSubmit()">Log in</button>
   </mat-card-actions>
 </mat-card>
