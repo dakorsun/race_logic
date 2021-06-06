@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Apollo, QueryRef} from 'apollo-angular';
-import {CommonUser, LoginCredentials, LoginGQL, MeGQL, MeQuery, MeQueryVariables} from '../../graphql/auth';
-import {BehaviorSubject, Observable, Subscription, throwError} from 'rxjs';
-import {AUTH_TOKEN_NAME, AUTH_USER_ID} from '../../constants';
+import { Injectable } from '@angular/core';
+import { Apollo, QueryRef } from 'apollo-angular';
+import { CommonUser, LoginCredentials, LoginGQL, MeGQL, MeQuery, MeQueryVariables } from '../../graphql/auth';
+import { BehaviorSubject, Observable, Subscription, throwError } from 'rxjs';
+import { AUTH_TOKEN_NAME, AUTH_USER_ID } from '../../constants';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,6 @@ export class AuthService {
   loginError = new BehaviorSubject<string | null>(null);
 
   constructor(
-    private apollo: Apollo,
     private loginGQL: LoginGQL,
     private meGQL: MeGQL,
   ) {
@@ -36,24 +35,16 @@ export class AuthService {
       .subscribe(({
         data,
         loading,
-        error
       }) => {
-        try {
-
           this.isLoading = loading;
-          // console.log('data.me: ', data.me);
-          if (error) {
-            this.logout();
-          } else if (data.me) {
+          if (data.me) {
             this.authorizedUser = data.me;
             this.saveUserData(data.me.id);
           } else {
             this.logout();
           }
-
-        } catch (e) {
-          console.log('e: ', e);
-        }
+      }, (error) =>  {
+        this.logout();
       });
   }
 

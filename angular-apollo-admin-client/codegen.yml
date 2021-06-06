@@ -9,3 +9,9 @@ generates:
       - typescript
       - typescript-operations
       - typescript-apollo-angular
+  ./src/app/graphql/events/index.ts:
+    documents: ./src/app/graphql/events/*.graphql
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-apollo-angular

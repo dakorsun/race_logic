@@ -5,12 +5,16 @@ import { BehaviorSubject } from 'rxjs';
 import { HomePageComponent } from '../pages/home-page/home-page.component';
 import { LoginPageComponent } from '../pages/login-page/login-page.component';
 import { environment } from '../../environments/environment';
+import { EventsPageComponent } from '../pages/events-page/events-page.component';
+import { EventPageComponent } from '../pages/event-page/event-page.component';
 
 export const routes: IRouteDescriptor[] = [
   {
     path: '',
     pathMatch: 'full',
     component: HomePageComponent,
+    navLink: true,
+    title: 'Home',
     authGuard: true,
   },
   {
@@ -18,17 +22,29 @@ export const routes: IRouteDescriptor[] = [
     component: LoginPageComponent,
     authSieve: true
   },
-  // {
-  //   path: 'secret-login',
-  //   component: LoginPageComponent,
-  //   authGuard: true
-  // },
+  {
+    path: 'events',
+    pathMatch: 'full',
+    component: EventsPageComponent,
+    navLink: true,
+    title: 'Events',
+    authGuard: true
+  },
+  {
+    path: 'event/:id',
+    component: EventPageComponent,
+    authGuard: true
+  },
 ];
 
 export interface IRouteDescriptor extends Route {
   path: string;
   authGuard?: boolean;
   authSieve?: boolean;
+  navLink?: boolean;
+  blank?: boolean;
+  title?: string;
+
   component: Type<any>;
 }
 
@@ -80,16 +96,16 @@ class AdminAuthSieve implements CanActivate {
   }
 }
 
-export const routesMapped = routes.map( (desc: IRouteDescriptor) => {
+export const routesMapped = routes.map((desc: IRouteDescriptor) => {
+  const {authSieve, authGuard, ...rest} = desc;
   const result: Route = {
-    path: desc.path,
-    component: desc.component,
+    ...rest,
     canActivate: [],
   };
-  if (desc.authSieve) {
+  if (authSieve) {
     result.canActivate?.push(AdminAuthSieve);
   }
-  if (desc.authGuard) {
+  if (authGuard) {
     result.canActivate?.push(AdminAuthGuard);
   }
   return result;

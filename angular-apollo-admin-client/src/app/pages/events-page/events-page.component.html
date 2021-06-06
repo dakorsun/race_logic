@@ -1,0 +1,53 @@
+<section fxLayout="row" fxLayoutAlign="center center">
+  <div
+    [fxFlex]="(isHandset$ | async) ? '1 1 60%' : '1 1 80%'"
+    fxFlex.lt-md="1 1 80%"
+    fxFlex.lt-sm="1 1 95%"
+
+    fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="2rem">
+    <div
+      fxFlexOffset="3rem"
+
+      fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="2rem"
+    >
+      <div>
+        <span class="mat-title">Events list</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <mat-grid-list
+        [cols]="(isSmall$ | async)
+                  ? 1
+                  :(isMedium$ | async)
+                    ? 2
+                    : 3"
+        [gutterSize]="(isSmall$ | async) || (isHandset$ | async) || (isMedium$ | async) ? '1rem' : '2rem'"
+        gutterSize="1rem"
+        [rowHeight]="(isHandset$ | async) ? '3:1' : '1.5:1'"
+      >
+        <mat-grid-tile
+          *ngFor="let event of events" [routerLink]="['/event', event.id]"
+        >
+
+          <mat-card
+            class="tile-content" fxFlex="stretch stretch"
+            style="height: 100%"
+          >
+            <mat-card-header>
+              <mat-card-title class="header">
+                <span>{{event.name}}</span>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <p>{{event.dateFrom | date}}</p>
+            </mat-card-content>
+            <mat-card-content>
+              <p>{{event.dateTo | date}}</p>
+            </mat-card-content>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+</section>

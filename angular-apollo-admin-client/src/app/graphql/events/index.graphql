@@ -1,0 +1,10 @@
+query events($searchParameters: FindEventsInput!) {
+  events(parameters: $searchParameters){
+    id
+    name
+    dateFrom
+    dateTo
+    createdAt
+    updatedAt
+  }
+}

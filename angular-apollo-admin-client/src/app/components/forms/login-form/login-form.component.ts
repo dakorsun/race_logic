@@ -39,7 +39,7 @@ export class LoginFormComponent implements OnInit {
       return 'Email is required';
     }
     if (this.email?.hasError('email')) {
-      return 'Email should be in \"user@address.domain\" format';
+      return 'Wrong email format';
     }
     return 'Email is wrong';
   }

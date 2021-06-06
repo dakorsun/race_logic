@@ -4,11 +4,33 @@
                [mode]="(isHandset$ | async) ? 'over' : 'side'"
                [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
-    <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+
+    <mat-nav-list *ngIf="!links.length; else linksLengthElseBlock"
+                  fxLayout="column" fxLayoutALign="start center">
+      <div class="mat-error" fxFlexAlign="center">No routes available</div>
     </mat-nav-list>
+
+    <ng-template #linksLengthElseBlock>
+      <mat-nav-list
+        *ngIf="(isHandset$ | async) === false; else notLargeElseBlock"
+        fxLayout="column" fxLayoutALign="start center">
+        <a mat-list-item *ngFor="let link of links" [routerLink]="link.address">
+          {{link.title}}
+        </a>
+      </mat-nav-list>
+    </ng-template>
+
+    <ng-template #notLargeElseBlock>
+      <mat-nav-list
+        fxLayout="column" fxLayoutALign="start center">
+        <a mat-list-item *ngFor="let link of links" [routerLink]="link.address"
+           (click)="drawer.toggle()"
+        >
+          {{link.title}}
+        </a>
+      </mat-nav-list>
+    </ng-template>
+
   </mat-sidenav>
   <mat-sidenav-content>
     <mat-toolbar
@@ -29,16 +51,15 @@
           Race Logic Admin
         </a>
       </div>
-      <app-logout-button *ngIf="isUserLogged; else elseBlock"
+      <app-logout-button *ngIf="isUserLogged; else appAuthButtonElseBlock"
                          (click)="onLogoutClick()"
-                          [username]="nickname || 'Unknown'"
+                         [username]="nickname || 'Unknown'"
       >
       </app-logout-button>
-      <ng-template #elseBlock>
+      <ng-template #appAuthButtonElseBlock>
         <app-login-button></app-login-button>
       </ng-template>
     </mat-toolbar>
     <ng-content></ng-content>
-    <!-- Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>

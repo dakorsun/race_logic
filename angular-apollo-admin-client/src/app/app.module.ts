@@ -23,6 +23,10 @@ import { LoginFormComponent } from './components/forms/login-form/login-form.com
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { EventsPageComponent } from './pages/events-page/events-page.component';
+import { EventPageComponent } from './pages/event-page/event-page.component';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,8 @@ import { MatInputModule } from '@angular/material/input';
     LoginPageComponent,
     HomePageComponent,
     LoginFormComponent,
+    EventsPageComponent,
+    EventPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,9 +57,12 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule,
     FormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatGridListModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {
+}
