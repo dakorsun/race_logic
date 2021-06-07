@@ -26,7 +26,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { EventsPageComponent } from './pages/events-page/events-page.component';
 import { EventPageComponent } from './pages/event-page/event-page.component';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+import { EventConfigComponent } from './pages/event-page/event-config/event-config.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import {MatDividerModule} from '@angular/material/divider';
     LoginFormComponent,
     EventsPageComponent,
     EventPageComponent,
+    EventConfigComponent,
   ],
   imports: [
     BrowserModule,

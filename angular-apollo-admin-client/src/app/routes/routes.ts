@@ -7,6 +7,17 @@ import { LoginPageComponent } from '../pages/login-page/login-page.component';
 import { environment } from '../../environments/environment';
 import { EventsPageComponent } from '../pages/events-page/events-page.component';
 import { EventPageComponent } from '../pages/event-page/event-page.component';
+import { EventConfigComponent } from '../pages/event-page/event-config/event-config.component';
+
+
+export const EventRoutes: IChildRouteDescriptor[] = [
+  {
+    path: 'config',
+    pathMatch: 'full',
+    title: 'Config',
+    component: EventConfigComponent,
+  }
+];
 
 export const routes: IRouteDescriptor[] = [
   {
@@ -28,14 +39,19 @@ export const routes: IRouteDescriptor[] = [
     component: EventsPageComponent,
     navLink: true,
     title: 'Events',
-    authGuard: true
+    authGuard: true,
   },
   {
     path: 'event/:id',
     component: EventPageComponent,
-    authGuard: true
+    authGuard: true,
+    children: EventRoutes
   },
 ];
+
+export interface IChildRouteDescriptor extends Route {
+  title?: string;
+}
 
 export interface IRouteDescriptor extends Route {
   path: string;

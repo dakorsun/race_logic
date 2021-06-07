@@ -171,6 +171,13 @@ export type EventsQueryVariables = Exact<{
 
 export type EventsQuery = { events: Array<Pick<Event, 'id' | 'name' | 'dateFrom' | 'dateTo' | 'createdAt' | 'updatedAt'>> };
 
+export type EventByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type EventByIdQuery = { eventById: Pick<Event, 'id' | 'name' | 'dateFrom' | 'dateTo' | 'createdAt' | 'updatedAt'> };
+
 export const EventsDocument = gql`
     query events($searchParameters: FindEventsInput!) {
   events(parameters: $searchParameters) {
@@ -189,6 +196,29 @@ export const EventsDocument = gql`
   })
   export class EventsGQL extends Apollo.Query<EventsQuery, EventsQueryVariables> {
     document = EventsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const EventByIdDocument = gql`
+    query eventById($id: String!) {
+  eventById(id: $id) {
+    id
+    name
+    dateFrom
+    dateTo
+    createdAt
+    updatedAt
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class EventByIdGQL extends Apollo.Query<EventByIdQuery, EventByIdQueryVariables> {
+    document = EventByIdDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

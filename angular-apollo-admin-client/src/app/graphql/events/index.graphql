@@ -8,3 +8,14 @@ query events($searchParameters: FindEventsInput!) {
     updatedAt
   }
 }
+
+query eventById($id: String!) {
+  eventById(id: $id){
+    id
+    name
+    dateFrom
+    dateTo
+    createdAt
+    updatedAt
+  }
+}

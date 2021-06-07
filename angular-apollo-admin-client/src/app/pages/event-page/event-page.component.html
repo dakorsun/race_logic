@@ -1,1 +1,35 @@
-<p>event-page works!</p>
+<section fxLayout="row" fxLayoutAlign="center center">
+  <div
+    [fxFlex]="(isHandset$ | async) ? '1 1 60%' : '1 1 80%'"
+    fxFlex.lt-md="1 1 80%"
+    fxFlex.lt-sm="1 1 95%"
+
+    fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="2rem"
+  >
+    <div
+      fxFlexOffset="3rem"
+
+      fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="2rem"
+    >
+      <div>
+        <span class="mat-title">{{eventCoreData?.name}}</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div
+        fxRowAlign="start stretch"
+        >
+        <button mat-raised-button
+                *ngFor="let link of eventLinks; let i = index"
+                [routerLink]=" eventLinks[i].path">{{link.title}}</button>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <router-outlet></router-outlet>
+
+    </div>
+  </div>
+
+</section>
